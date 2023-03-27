@@ -1,6 +1,7 @@
 package com.sheansuke.kotlinmvvm.screens.login.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,24 +18,44 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.ui.theme.Darkgray500
+import com.sheansuke.kotlinmvvm.ui.theme.Red500
 
 @Composable
 fun LoginContent() {
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .fillMaxWidth()
     ) {
-        Image(
-            modifier = Modifier.height(130.dp),
-            painter = painterResource(id = R.drawable.control),
-            contentDescription = "Control de xbox 360",
-        )
-        Text(
-            modifier = Modifier.padding(bottom = 30.dp),
-            text = "FIREBASE MVVM")
 
+        BoxHeader()
         CardForm()
+    }
+}
+
+@Composable
+fun BoxHeader() {
+    Box(
+        modifier = Modifier
+            .height(270.dp)
+            .background(Red500)
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                modifier = Modifier.height(130.dp),
+                painter = painterResource(id = R.drawable.control),
+                contentDescription = "Control de xbox 360",
+            )
+
+            Text(
+                modifier = Modifier.padding(bottom = 30.dp),
+                text = "FIREBASE MVVM"
+            )
+        }
+
     }
 }
 
@@ -42,12 +63,16 @@ fun LoginContent() {
 fun CardForm() {
     Card(
         modifier = Modifier.padding(
-            horizontal = 40.dp,
+            start = 40.dp,
+            end = 40.dp,
+            top = 200.dp,
+            bottom = 0.dp
+
         ),
         backgroundColor = Darkgray500,
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 20.dp)
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
         ) {
             Text(
                 text = "LOGIN",
@@ -59,7 +84,7 @@ fun CardForm() {
                 )
             Text(
                 text = "Por favor inicia sesion para continuar",
-                modifier = Modifier.padding(vertical = 12.dp),
+                modifier = Modifier.padding(top = 10.dp, start = 0.dp, end = 0.dp, bottom = 20.dp),
                 fontSize = 15.sp,
                 color = Color.Gray,
             )
@@ -89,7 +114,7 @@ fun CardForm() {
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 30.dp, vertical = 10.dp),
+                    .padding(horizontal = 30.dp, vertical = 30.dp),
 
 
                 onClick = { /*TODO*/ }) {

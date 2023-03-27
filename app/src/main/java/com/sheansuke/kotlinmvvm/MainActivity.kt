@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.sheansuke.kotlinmvvm.screens.login.LoginScreen
 import com.sheansuke.kotlinmvvm.ui.theme.KotlinMVVMTheme
 
@@ -24,6 +26,22 @@ class MainActivity : ComponentActivity() {
                     LoginScreen()
                 }
             }
+        }
+    }
+}
+
+
+@Preview(showSystemUi = true)
+@Composable
+fun defaultPreview() {
+    KotlinMVVMTheme(darkTheme = true) {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier
+                .fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            LoginScreen()
         }
     }
 }
