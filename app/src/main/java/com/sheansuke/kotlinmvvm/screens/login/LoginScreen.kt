@@ -11,10 +11,10 @@ fun LoginScreen() {
     Scaffold(
         topBar = {},
         content = {
-//            LoginContent()
+            LoginContent()
         },
         bottomBar = {
-//            LoginBottomBar()
+            LoginBottomBar()
         }
     )
 }
