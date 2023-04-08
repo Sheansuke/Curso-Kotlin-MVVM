@@ -11,11 +11,11 @@ import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpScreen
 fun AppNavigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = AppScreen.Login.routeName) {
         composable(AppScreen.Login.routeName) {
-            LoginScreen()
+            LoginScreen(navController)
         }
 
         composable(AppScreen.SignUp.routeName) {
-            SignUpScreen()
+            SignUpScreen(navController)
         }
     }
 

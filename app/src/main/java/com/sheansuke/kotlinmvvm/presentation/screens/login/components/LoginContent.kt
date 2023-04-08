@@ -21,6 +21,7 @@ import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
+import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
 @Composable
@@ -77,7 +78,7 @@ fun CardForm() {
             top = 200.dp,
             bottom = 0.dp
         ),
-        backgroundColor = Darkgray500,
+        backgroundColor = Darkgray700,
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
