@@ -1,4 +1,4 @@
-package com.sheansuke.kotlinmvvm.components
+package com.sheansuke.kotlinmvvm.presentation.components
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon

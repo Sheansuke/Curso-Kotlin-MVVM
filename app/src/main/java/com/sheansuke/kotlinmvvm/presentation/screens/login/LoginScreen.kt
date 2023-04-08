@@ -1,9 +1,9 @@
-package com.sheansuke.kotlinmvvm.screens.login
+package com.sheansuke.kotlinmvvm.presentation.screens.login
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import com.sheansuke.kotlinmvvm.screens.login.components.LoginBottomBar
-import com.sheansuke.kotlinmvvm.screens.login.components.LoginContent
+import com.sheansuke.kotlinmvvm.presentation.screens.login.components.LoginBottomBar
+import com.sheansuke.kotlinmvvm.presentation.screens.login.components.LoginContent
 
 
 @Composable

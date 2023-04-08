@@ -1,4 +1,4 @@
-package com.sheansuke.kotlinmvvm.screens.login.components
+package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme

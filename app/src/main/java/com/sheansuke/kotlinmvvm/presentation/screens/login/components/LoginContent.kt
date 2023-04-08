@@ -1,4 +1,4 @@
-package com.sheansuke.kotlinmvvm.screens.login.components
+package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,10 +18,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sheansuke.kotlinmvvm.R
-import com.sheansuke.kotlinmvvm.components.DefaultButton
-import com.sheansuke.kotlinmvvm.components.DefaultTextField
-import com.sheansuke.kotlinmvvm.ui.theme.Darkgray500
-import com.sheansuke.kotlinmvvm.ui.theme.Red500
+import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
+import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
+import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
+import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
 @Composable
 fun LoginContent() {

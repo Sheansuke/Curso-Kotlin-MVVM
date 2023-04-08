@@ -1,4 +1,4 @@
-package com.sheansuke.kotlinmvvm.ui.theme
+package com.sheansuke.kotlinmvvm.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
