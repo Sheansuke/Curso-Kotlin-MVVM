@@ -11,7 +11,7 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -23,8 +23,6 @@ import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
-import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red200
-import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
 @Composable
 fun SignUpContent() {
@@ -56,7 +54,8 @@ fun SignUpContentHeader() {
         ) {
 
             Image(
-                painter = painterResource(id = R.drawable.user), contentDescription = "User Icon")
+                painter = painterResource(id = R.drawable.user), contentDescription = "User Icon"
+            )
 
         }
     }
@@ -64,6 +63,23 @@ fun SignUpContentHeader() {
 
 @Composable
 fun SignUpContentBody() {
+
+    var userName by remember {
+        mutableStateOf("")
+    }
+
+    var email by remember {
+        mutableStateOf("")
+    }
+
+    var password by remember {
+        mutableStateOf("")
+    }
+
+    var confirmPassword by remember {
+        mutableStateOf("")
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -104,32 +120,32 @@ fun SignUpContentBody() {
                 Spacer(modifier = Modifier.height(10.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = "",
-                    onValueChange = {},
+                    value = userName,
+                    onValueChange = { userName = it },
                     label = "Nombre de usuario",
                     icon = Icons.Default.Person
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = "",
-                    onValueChange = {},
+                    value = email,
+                    onValueChange = { email = it },
                     label = "Correo electronico",
                     icon = Icons.Default.Email
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = "",
-                    onValueChange = {},
+                    value = password,
+                    onValueChange = { password = it },
                     label = "Password",
                     icon = Icons.Default.Lock
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = "",
-                    onValueChange = {},
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
                     label = "Confirmar Password",
                     icon = Icons.Default.Lock
                 )
