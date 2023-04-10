@@ -100,7 +100,9 @@ fun CardForm(viewModel: LoginViewModel) {
                 onValueChange = { viewModel.email.value = it },
                 label = "Email",
                 icon = Icons.Default.Email,
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
+                errorMsg = viewModel.emailErrorMsg.value,
+                validator = { viewModel.validEmail() }
             )
             Spacer(modifier = Modifier.height(10.dp))
             DefaultTextField(
@@ -109,13 +111,16 @@ fun CardForm(viewModel: LoginViewModel) {
                 label = "Password",
                 icon = Icons.Default.Lock,
                 hiddeText = true,
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                errorMsg = viewModel.passwordErrorMsg.value,
+                validator = { viewModel.validPassword() }
             )
             Spacer(modifier = Modifier.height(10.dp))
 
 
             DefaultButton(
                 text = "INICIAR SESION",
+                enabled = viewModel.isButtonEnabled.value,
                 onClick = {
                     Log.d("LoginContent", "${viewModel.email.value} ${viewModel.password.value}")
                 },

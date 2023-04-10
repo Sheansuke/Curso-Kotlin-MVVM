@@ -18,9 +18,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
+import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpViewModel
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 
@@ -48,12 +50,12 @@ fun SignUpContentHeader() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp),
+                .padding(top = 10.dp),
             horizontalArrangement = Arrangement.Center
-
         ) {
-
             Image(
+                modifier = Modifier
+                    .size(100.dp),
                 painter = painterResource(id = R.drawable.user), contentDescription = "User Icon"
             )
 
@@ -62,7 +64,7 @@ fun SignUpContentHeader() {
 }
 
 @Composable
-fun SignUpContentBody() {
+fun SignUpContentBody(viewModel: SignUpViewModel = hiltViewModel()) {
 
     var userName by remember {
         mutableStateOf("")
@@ -87,9 +89,9 @@ fun SignUpContentBody() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(700.dp)
+                .height(690.dp)
                 .padding(
-                    top = 200.dp,
+                    top = 140.dp,
                     bottom = 0.dp,
                     start = 20.dp,
                     end = 20.dp
@@ -99,7 +101,7 @@ fun SignUpContentBody() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
@@ -117,7 +119,7 @@ fun SignUpContentBody() {
 
                     )
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(5.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = userName,
@@ -125,7 +127,7 @@ fun SignUpContentBody() {
                     label = "Nombre de usuario",
                     icon = Icons.Default.Person
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
@@ -133,7 +135,7 @@ fun SignUpContentBody() {
                     label = "Correo electronico",
                     icon = Icons.Default.Email
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
@@ -141,7 +143,7 @@ fun SignUpContentBody() {
                     label = "Password",
                     icon = Icons.Default.Lock
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = confirmPassword,
