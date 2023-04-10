@@ -18,6 +18,4 @@ fun AppNavigation(navController: NavHostController) {
             SignUpScreen(navController)
         }
     }
-
-
 }

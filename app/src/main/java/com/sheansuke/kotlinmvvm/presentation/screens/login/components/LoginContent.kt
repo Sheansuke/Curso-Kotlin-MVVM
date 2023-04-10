@@ -1,5 +1,6 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,22 +18,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
-import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
+import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
 @Composable
-fun LoginContent() {
+fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
     ) {
 
         BoxHeader()
-        CardForm()
+        CardForm(viewModel)
     }
 }
 
@@ -64,13 +66,8 @@ fun BoxHeader() {
 }
 
 @Composable
-fun CardForm() {
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by remember {
-        mutableStateOf("")
-    }
+fun CardForm(viewModel: LoginViewModel) {
+
     Card(
         modifier = Modifier.padding(
             start = 40.dp,
@@ -99,16 +96,16 @@ fun CardForm() {
             )
 
             DefaultTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = viewModel.email.value,
+                onValueChange = { viewModel.email.value = it },
                 label = "Email",
                 icon = Icons.Default.Email,
                 keyboardType = KeyboardType.Email
             )
             Spacer(modifier = Modifier.height(10.dp))
             DefaultTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password.value,
+                onValueChange = { viewModel.password.value = it },
                 label = "Password",
                 icon = Icons.Default.Lock,
                 hiddeText = true,
@@ -119,7 +116,9 @@ fun CardForm() {
 
             DefaultButton(
                 text = "INICIAR SESION",
-                onClick = { /*TODO*/ },
+                onClick = {
+                    Log.d("LoginContent", "${viewModel.email.value} ${viewModel.password.value}")
+                },
 //
             )
         }
