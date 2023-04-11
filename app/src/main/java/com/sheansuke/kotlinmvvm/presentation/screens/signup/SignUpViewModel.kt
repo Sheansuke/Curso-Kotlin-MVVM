@@ -13,15 +13,14 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
         val username: String
     )
 
-    private val _uiState: MutableState<UiState> = mutableStateOf(UiState(""))
-    var uiState: State<UiState> = _uiState
+    private val _signUpState: MutableState<UiState> = mutableStateOf(UiState(""))
+    var signUpState: State<UiState> = _signUpState
 
     fun changeUserName(newUserName: String) {
-       val newState = uiState.value.copy(
+       val newState = signUpState.value.copy(
             username = newUserName
         )
-
-        _uiState.value = newState
+        _signUpState.value = newState
     }
 
 }
