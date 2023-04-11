@@ -8,13 +8,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(): ViewModel() {
+class SignUpViewModel @Inject constructor() : ViewModel() {
     data class UiState(
         val username: String
     )
+
     private val _uiState: MutableState<UiState> = mutableStateOf(UiState(""))
     var uiState: State<UiState> = _uiState
 
+    fun changeUserName(newUserName: String) {
+       val newState = uiState.value.copy(
+            username = newUserName
+        )
 
+        _uiState.value = newState
+    }
 
 }

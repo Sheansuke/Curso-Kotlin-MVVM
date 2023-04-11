@@ -66,9 +66,7 @@ fun SignUpContentHeader() {
 @Composable
 fun SignUpContentBody(viewModel: SignUpViewModel = hiltViewModel()) {
 
-    var userName by remember {
-        mutableStateOf("")
-    }
+    val formState = viewModel.uiState.value
 
     var email by remember {
         mutableStateOf("")
@@ -122,8 +120,8 @@ fun SignUpContentBody(viewModel: SignUpViewModel = hiltViewModel()) {
                 Spacer(modifier = Modifier.height(5.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = userName,
-                    onValueChange = { userName = it },
+                    value = formState.username,
+                    onValueChange = { viewModel.changeUserName(it) },
                     label = "Nombre de usuario",
                     icon = Icons.Default.Person
                 )
