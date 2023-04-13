@@ -16,12 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
+import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpViewModel
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
@@ -65,20 +67,7 @@ fun SignUpContentHeader() {
 
 @Composable
 fun SignUpContentBody(viewModel: SignUpViewModel = hiltViewModel()) {
-
-    val formState = viewModel.uiState.value
-
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var password by remember {
-        mutableStateOf("")
-    }
-
-    var confirmPassword by remember {
-        mutableStateOf("")
-    }
+    val state = viewModel.signUpState.value
 
     Box(
         modifier = Modifier
@@ -120,34 +109,45 @@ fun SignUpContentBody(viewModel: SignUpViewModel = hiltViewModel()) {
                 Spacer(modifier = Modifier.height(5.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = formState.username,
-                    onValueChange = { viewModel.changeUserName(it) },
+                    value = state.username,
+                    onValueChange = { viewModel.onEvent(SignUpEvent.InputUserName(it))  },
                     label = "Nombre de usuario",
-                    icon = Icons.Default.Person
+                    icon = Icons.Default.Person,
+                    KeyboardType.Text,
+                    errorMsg = if(state.isValidUserName == false) "El usuario necesita minimo 6 caracteres" else ""
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = email,
-                    onValueChange = { email = it },
+                    value = state.email,
+                    onValueChange = { viewModel.onEvent(SignUpEvent.InputEmail(it)) },
                     label = "Correo electronico",
-                    icon = Icons.Default.Email
+                    icon = Icons.Default.Email,
+                    KeyboardType.Email,
+                    errorMsg = if(state.isValidEmail == false) "Email no valido" else ""
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = password,
-                    onValueChange = { password = it },
+                    value = state.password,
+                    onValueChange = { viewModel.onEvent(SignUpEvent.InputPassword(it))  },
                     label = "Password",
-                    icon = Icons.Default.Lock
+                    icon = Icons.Default.Lock,
+                    hiddeText = true,
+                    keyboardType = KeyboardType.Password,
+                    errorMsg = if(state.isValidPassword == false) "La password necesita minimo 8 caracteres" else ""
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 DefaultTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = confirmPassword,
-                    onValueChange = { confirmPassword = it },
+                    value = state.confirmPassword,
+                    onValueChange = { viewModel.onEvent(SignUpEvent.InputConfirmPassword(it))  },
                     label = "Confirmar Password",
-                    icon = Icons.Default.Lock
+                    icon = Icons.Default.Lock,
+                    hiddeText = true,
+                    keyboardType = KeyboardType.Password,
+                    errorMsg = if(state.isValidConfirmPassword == false) "La password es distinta" else ""
+
                 )
 
                 DefaultButton(
