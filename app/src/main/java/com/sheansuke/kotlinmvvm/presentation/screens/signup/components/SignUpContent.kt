@@ -152,6 +152,7 @@ fun SignUpContentBody(viewModel: SignUpViewModel = hiltViewModel()) {
 
                 DefaultButton(
                     icon = Icons.Default.ArrowForward,
+                    enabled = state.isValidForm,
                     text = "INICIAR SESION", onClick = { /*TODO*/ })
             }
         }

@@ -1,51 +1,51 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login
 
-import android.util.Patterns
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
+import com.sheansuke.kotlinmvvm.presentation.utils.validateEmail
+import com.sheansuke.kotlinmvvm.presentation.utils.validatePassword
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor() : ViewModel() {
-    var email: MutableState<String> = mutableStateOf("")
-    var isValidEmail: MutableState<Boolean> = mutableStateOf(false)
-    var emailErrorMsg: MutableState<String> = mutableStateOf("")
+
+    val _loginState: MutableState<LoginState> = mutableStateOf(LoginState())
+    val loginState: State<LoginState> = _loginState
 
 
-    var password: MutableState<String> = mutableStateOf("")
-    var isValidPassword: MutableState<Boolean> = mutableStateOf(false)
-    var passwordErrorMsg: MutableState<String> = mutableStateOf("")
+    fun onEvent(event: LoginEvent) {
+        when (event) {
+            is LoginEvent.InputEmail -> {
+                _loginState.value = loginState.value.copy(
+                    email = event.email,
+                    isValidEmail = validateEmail(event.email)
+                )
+                validateForm()
+            }
 
-    // BUTTON
-    var isButtonEnabled: MutableState<Boolean> = mutableStateOf(false)
-
-    fun validateEnabledButton () {
-        isButtonEnabled.value = isValidEmail.value && isValidPassword.value
-    }
-    fun validEmail(){
-        if (Patterns.EMAIL_ADDRESS.matcher(email.value).matches()){
-            isValidEmail.value = true
-            emailErrorMsg.value = ""
-        } else {
-            isValidEmail.value = false
-            emailErrorMsg.value = "Email no valido"
+            is LoginEvent.InputPassword -> {
+                _loginState.value = loginState.value.copy(
+                    password = event.password,
+                    isValidPassword = validatePassword(event.password)
+                )
+                validateForm()
+            }
         }
-        validateEnabledButton()
     }
 
-    fun validPassword(){
-        if (password.value.length >= 6){
-            isValidPassword.value = true
-            passwordErrorMsg.value = ""
+    fun validateForm() {
+        if (_loginState.value.isValidEmail == true && _loginState.value.isValidPassword == true) {
+            _loginState.value = loginState.value.copy(
+                isValidForm = true
+            )
         } else {
-            isValidPassword.value = false
-            passwordErrorMsg.value = "Password no valida"
+            _loginState.value = loginState.value.copy(
+                isValidForm = false
+            )
         }
-        validateEnabledButton()
     }
 
 }

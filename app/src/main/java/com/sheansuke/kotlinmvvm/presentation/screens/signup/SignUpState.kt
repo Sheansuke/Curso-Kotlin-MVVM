@@ -10,5 +10,6 @@ data class SignUpState(
     val isValidUserName: Boolean? = null,
     val isValidEmail: Boolean? = null,
     val isValidPassword: Boolean? = null,
-    val isValidConfirmPassword: Boolean? = null
+    val isValidConfirmPassword: Boolean? = null,
+    val isValidForm: Boolean = false
 )

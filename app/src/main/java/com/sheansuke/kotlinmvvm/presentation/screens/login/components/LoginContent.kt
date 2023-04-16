@@ -1,15 +1,19 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,19 +26,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
+import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
 @Composable
-fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginContent() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
     ) {
 
         BoxHeader()
-        CardForm(viewModel)
+        CardForm()
     }
 }
 
@@ -66,7 +71,8 @@ fun BoxHeader() {
 }
 
 @Composable
-fun CardForm(viewModel: LoginViewModel) {
+fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
+    val state = viewModel.loginState.value
 
     Card(
         modifier = Modifier.padding(
@@ -96,34 +102,30 @@ fun CardForm(viewModel: LoginViewModel) {
             )
 
             DefaultTextField(
-                value = viewModel.email.value,
-                onValueChange = { viewModel.email.value = it },
+                value = state.email,
+                onValueChange = { viewModel.onEvent(LoginEvent.InputEmail(it)) },
                 label = "Email",
                 icon = Icons.Default.Email,
                 keyboardType = KeyboardType.Email,
-                errorMsg = viewModel.emailErrorMsg.value,
-                validator = { viewModel.validEmail() }
+                errorMsg = if (state.isValidEmail == false) "Email no valido" else ""
             )
             Spacer(modifier = Modifier.height(10.dp))
             DefaultTextField(
-                value = viewModel.password.value,
-                onValueChange = { viewModel.password.value = it },
+                value = state.password,
+                onValueChange = { viewModel.onEvent(LoginEvent.InputPassword(it)) },
                 label = "Password",
                 icon = Icons.Default.Lock,
                 hiddeText = true,
                 keyboardType = KeyboardType.Password,
-                errorMsg = viewModel.passwordErrorMsg.value,
-                validator = { viewModel.validPassword() }
+                errorMsg = if (state.isValidPassword == false) "Password no valida" else ""
             )
             Spacer(modifier = Modifier.height(10.dp))
 
 
             DefaultButton(
                 text = "INICIAR SESION",
-                enabled = viewModel.isButtonEnabled.value,
-                onClick = {
-                    Log.d("LoginContent", "${viewModel.email.value} ${viewModel.password.value}")
-                },
+                enabled = state.isValidForm,
+                onClick = { },
 //
             )
         }
