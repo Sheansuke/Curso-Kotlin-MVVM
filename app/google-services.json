@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680799422252",
+    "project_id": "curso-kotlin-mvvm-fireba-19a4f",
+    "storage_bucket": "curso-kotlin-mvvm-fireba-19a4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680799422252:android:f27151f933e2ee44b00e89",
+        "android_client_info": {
+          "package_name": "com.sheansuke.kotlinmvvm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680799422252-bjrkguurvjrd8q6qqg78njmef46uheqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkxy1C0zaGhrXAF6-tDFX7M8_JYL-AeXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680799422252-bjrkguurvjrd8q6qqg78njmef46uheqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
