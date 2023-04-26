@@ -1,22 +1,28 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -24,12 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sheansuke.kotlinmvvm.R
+import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Composable
 fun LoginContent() {
@@ -72,7 +80,7 @@ fun BoxHeader() {
 
 @Composable
 fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
-    val state = viewModel.loginState.value
+    val stateFlow = viewModel.loginFlow.collectAsState()
 
     Card(
         modifier = Modifier.padding(
@@ -102,32 +110,57 @@ fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
             )
 
             DefaultTextField(
-                value = state.email,
+                value = viewModel.loginState.value.email,
                 onValueChange = { viewModel.onEvent(LoginEvent.InputEmail(it)) },
                 label = "Email",
                 icon = Icons.Default.Email,
                 keyboardType = KeyboardType.Email,
-                errorMsg = if (state.isValidEmail == false) "Email no valido" else ""
+                errorMsg = if (viewModel.loginState.value.isValidEmail == false) "Email no valido" else ""
             )
             Spacer(modifier = Modifier.height(10.dp))
             DefaultTextField(
-                value = state.password,
+                value = viewModel.loginState.value.password,
                 onValueChange = { viewModel.onEvent(LoginEvent.InputPassword(it)) },
                 label = "Password",
                 icon = Icons.Default.Lock,
                 hiddeText = true,
                 keyboardType = KeyboardType.Password,
-                errorMsg = if (state.isValidPassword == false) "Password no valida" else ""
+                errorMsg = if (viewModel.loginState.value.isValidPassword == false) "Password no valida" else ""
             )
             Spacer(modifier = Modifier.height(10.dp))
 
 
             DefaultButton(
                 text = "INICIAR SESION",
-                enabled = state.isValidForm,
-                onClick = { },
+                enabled = viewModel.loginState.value.isValidForm,
+                onClick = {
+                          viewModel.onEvent( LoginEvent.Login)
+                },
 //
             )
+        }
+    }
+
+    stateFlow?.value.let {
+        when(it) {
+            is Resource.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is Resource.Success -> {
+                Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+            }
+
+            is Resource.Error -> {
+                Toast.makeText(LocalContext.current, "Error", Toast.LENGTH_LONG).show()
+            }
+
+            else -> {}
         }
     }
 }
