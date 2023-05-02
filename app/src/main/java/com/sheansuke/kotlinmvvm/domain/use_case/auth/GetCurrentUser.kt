@@ -8,6 +8,6 @@ class GetCurrentUser @Inject constructor(
     private val repository: AuthRepository
 ) {
 
-    operator fun invoke(): FirebaseUser? = repository.currentUser
+    operator fun invoke() = repository.currentUser
 
 }

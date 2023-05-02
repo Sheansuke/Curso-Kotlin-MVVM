@@ -1,6 +1,5 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,25 +29,26 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
+import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Composable
-fun LoginContent() {
+fun LoginContent(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
     ) {
 
         BoxHeader()
-        CardForm()
+        CardForm(navController)
     }
 }
 
@@ -79,7 +80,7 @@ fun BoxHeader() {
 }
 
 @Composable
-fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
+fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
     val stateFlow = viewModel.loginFlow.collectAsState()
 
     Card(
@@ -134,7 +135,7 @@ fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
                 text = "INICIAR SESION",
                 enabled = viewModel.loginState.value.isValidForm,
                 onClick = {
-                          viewModel.onEvent( LoginEvent.Login)
+                    viewModel.onEvent(LoginEvent.Login)
                 },
 //
             )
@@ -142,7 +143,7 @@ fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
     }
 
     stateFlow?.value.let {
-        when(it) {
+        when (it) {
             is Resource.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -153,7 +154,12 @@ fun CardForm(viewModel: LoginViewModel = hiltViewModel()) {
             }
 
             is Resource.Success -> {
-                Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_LONG).show()
+                LaunchedEffect(Unit) {
+                    navController.navigate(AppScreen.Profile.routeName) {
+                        popUpTo(AppScreen.Login.routeName) { inclusive = true }
+                    }
+
+                }
             }
 
             is Resource.Error -> {

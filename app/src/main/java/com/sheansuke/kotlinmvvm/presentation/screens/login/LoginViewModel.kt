@@ -27,6 +27,13 @@ class LoginViewModel @Inject constructor(
     private val _loginFlow = MutableStateFlow<Resource<FirebaseUser>?>(null)
     val loginFlow: StateFlow<Resource<FirebaseUser>?> = _loginFlow
 
+    val currentUser = authUseCase.getCurrentUser()
+    init {
+            if (currentUser != null) { // SESSION INITIALIZED
+                _loginFlow.value = Resource.Success(currentUser)
+            }
+    }
+
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.InputEmail -> {

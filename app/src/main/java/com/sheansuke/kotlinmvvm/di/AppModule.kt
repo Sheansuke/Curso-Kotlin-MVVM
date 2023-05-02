@@ -7,6 +7,8 @@ import com.sheansuke.kotlinmvvm.domain.use_case.auth.AuthUseCase
 
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.GetCurrentUser
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.Login
+import com.sheansuke.kotlinmvvm.domain.use_case.auth.Logout
+import com.sheansuke.kotlinmvvm.domain.use_case.auth.SignUp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +29,9 @@ object AppModule {
     @Provides
     fun provideAuthUseCase(repository: AuthRepository) = AuthUseCase(
         getCurrentUser = GetCurrentUser(repository),
-        login = Login(repository)
+        login = Login(repository),
+        logout = Logout(repository),
+        signUp = SignUp(repository)
     )
 
 }
