@@ -21,10 +21,11 @@ fun DefaultButton(
     onClick: () -> Unit,
     color: Color = Red500,
     icon: ImageVector? = null,
+    modifier: Modifier? = null,
     enabled: Boolean = true
 ) {
     Button(
-        modifier = Modifier
+        modifier = modifier ?: Modifier
             .fillMaxWidth()
             .padding(horizontal = 30.dp, vertical = 30.dp),
         colors = ButtonDefaults.buttonColors(color),
