@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.domain.model.User
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.AuthUseCase
+import com.sheansuke.kotlinmvvm.domain.use_case.users.UsersUseCase
 import com.sheansuke.kotlinmvvm.presentation.utils.validateConfirmPassword
 import com.sheansuke.kotlinmvvm.presentation.utils.validateEmail
 import com.sheansuke.kotlinmvvm.presentation.utils.validatePassword
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase
+    private val authUseCase: AuthUseCase,
+    private val usersUseCase: UsersUseCase
 ) : ViewModel() {
 
     private val _signUpState: MutableState<SignUpState> = mutableStateOf(SignUpState(""))
@@ -29,6 +31,13 @@ class SignUpViewModel @Inject constructor(
 
     private val _signUpFlow = MutableStateFlow<Resource<FirebaseUser>?>(null)
     val signUpFlow: StateFlow<Resource<FirebaseUser>?> = _signUpFlow
+
+    val newUser = User("","","","")
+
+    fun onSignUp() = viewModelScope.launch {
+        newUser.id = authUseCase.getCurrentUser()?.uid
+        usersUseCase.create(newUser)
+    }
 
     // EVENTS -------------------------------------------------------
     fun onEvent(event: SignUpEvent) {
@@ -70,17 +79,14 @@ class SignUpViewModel @Inject constructor(
 
             is SignUpEvent.SignUp -> {
                 _signUpFlow.value = Resource.Loading
-                val newUser = User(
-                    username = _signUpState.value.username,
-                    email = _signUpState.value.email,
-                    password = _signUpState.value.password
-                )
+                newUser.username = _signUpState.value.username
+                newUser.email = _signUpState.value.email
+                newUser.password = _signUpState.value.password
                 viewModelScope.launch {
                     val result = authUseCase.signUp(newUser)
                     _signUpFlow.value = result
                 }
             }
-
 
         }
     }

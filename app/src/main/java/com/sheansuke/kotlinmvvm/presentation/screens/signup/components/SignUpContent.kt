@@ -196,6 +196,7 @@ fun SignUpContentBody(
                 Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_SHORT).show()
 
                 LaunchedEffect(Unit) {
+                    viewModel.onSignUp()
                     navController.navigate(AppScreen.Profile.routeName) {
                         popUpTo(AppScreen.SignUp.routeName) { inclusive = true }
                     }
