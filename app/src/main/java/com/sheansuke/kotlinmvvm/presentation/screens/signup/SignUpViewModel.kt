@@ -38,7 +38,6 @@ class SignUpViewModel @Inject constructor(
         newUser.id = authUseCase.getCurrentUser()?.uid
         usersUseCase.create(newUser)
     }
-
     // EVENTS -------------------------------------------------------
     fun onEvent(event: SignUpEvent) {
         when (event) {
