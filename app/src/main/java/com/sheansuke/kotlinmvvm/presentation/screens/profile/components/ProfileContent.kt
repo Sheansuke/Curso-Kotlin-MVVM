@@ -1,8 +1,6 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.profile.components
 
-import android.widget.Space
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
+import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 
 @Composable
@@ -40,15 +39,14 @@ fun ProfileContent(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-           Image(
-               modifier = Modifier
-                   .fillMaxWidth()
-                   .height(250.dp)
-               ,
-               painter = painterResource(id = R.drawable.background),
-               contentDescription = "background",
-               contentScale = ContentScale.Crop
-           )
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp),
+                painter = painterResource(id = R.drawable.background),
+                contentDescription = "background",
+                contentScale = ContentScale.Crop
+            )
 
             Column(
                 modifier = Modifier
@@ -63,11 +61,12 @@ fun ProfileContent(
                 Image(
                     modifier = Modifier.padding(top = 70.dp),
                     painter = painterResource(id = R.drawable.user),
-                    contentDescription = "user icon")
+                    contentDescription = "user icon"
+                )
             }
 
         }
-        
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,10 +75,12 @@ fun ProfileContent(
         ) {
             Text(
                 fontSize = 25.sp,
-                text = "USERNAME")
+                text = viewModel.state.value.username ?: ""
+            )
             Text(
                 color = Color.Gray,
-                text = "username@gmail.com")
+                text = viewModel.state.value.email ?: ""
+            )
         }
 
         Column() {
@@ -92,8 +93,11 @@ fun ProfileContent(
                 text = "Editar Datos",
                 icon = Icons.Default.Edit,
                 color = Color.White,
-                onClick = {})
-            
+                onClick = {
+                    navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.state.value.toJson()))
+                }
+            )
+
             Spacer(modifier = Modifier.height(20.dp))
             DefaultButton(
                 modifier = Modifier
