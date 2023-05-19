@@ -106,7 +106,9 @@ fun ProfileContent(
                     .padding(horizontal = 20.dp, vertical = 0.dp),
                 icon = Icons.Default.ExitToApp,
                 text = "Cerrar Sesion",
-                onClick = {})
+                onClick = {
+                    // TODO: falta implementar el cerrar sesion
+                })
         }
 
     }

@@ -27,7 +27,7 @@ import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
 @Composable
 fun ProfileEditContent(
-     viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: ProfileViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -87,7 +87,9 @@ fun ProfileEditContent(
                         .padding(horizontal = 20.dp, vertical = 0.dp),
                     icon = Icons.Default.Refresh,
                     text = "Actualizar Perfil",
-                    onClick = {}
+                    onClick = {
+                        // TODO: falta implementar el flujo de actualizar perfil
+                    }
                 )
             }
 
