@@ -10,6 +10,8 @@ import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.domain.model.User
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.AuthUseCase
 import com.sheansuke.kotlinmvvm.domain.use_case.users.UsersUseCase
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.handleApiResult
 import com.sheansuke.kotlinmvvm.presentation.utils.validateConfirmPassword
 import com.sheansuke.kotlinmvvm.presentation.utils.validateEmail
 import com.sheansuke.kotlinmvvm.presentation.utils.validatePassword
@@ -29,8 +31,8 @@ class SignUpViewModel @Inject constructor(
     private val _signUpState: MutableState<SignUpState> = mutableStateOf(SignUpState(""))
     var signUpState: State<SignUpState> = _signUpState
 
-    private val _signUpFlow = MutableStateFlow<Resource<FirebaseUser>?>(null)
-    val signUpFlow: StateFlow<Resource<FirebaseUser>?> = _signUpFlow
+    private val _eventFlow = MutableStateFlow<UiEvent?>(null)
+    val eventFlow: StateFlow<UiEvent?> = _eventFlow
 
     val newUser = User("","","","")
 
@@ -77,13 +79,14 @@ class SignUpViewModel @Inject constructor(
             }
 
             is SignUpEvent.SignUp -> {
-                _signUpFlow.value = Resource.Loading
+                _eventFlow.value = UiEvent.Loading
                 newUser.username = _signUpState.value.username
                 newUser.email = _signUpState.value.email
                 newUser.password = _signUpState.value.password
                 viewModelScope.launch {
                     val result = authUseCase.signUp(newUser)
-                    _signUpFlow.value = result
+                    val eventResult = handleApiResult(result)
+                    _eventFlow.value = eventResult
                 }
             }
 

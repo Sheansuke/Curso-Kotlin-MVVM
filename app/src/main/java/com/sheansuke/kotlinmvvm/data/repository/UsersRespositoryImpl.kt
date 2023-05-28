@@ -7,6 +7,7 @@ import com.sheansuke.kotlinmvvm.domain.repository.UsersRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -30,6 +31,14 @@ class UsersRespositoryImpl @Inject constructor(
         awaitClose {
             snapshotListener.remove()
         }
+    }
 
+    override suspend fun updatedUser(user: User): Flow<Resource<Boolean>> = flow {
+        try {
+            usersRef.document(user.id!!).set(user).await()
+            emit(Resource.Success(true))
+        } catch (error: Exception) {
+            emit(Resource.Error(error))
+        }
     }
 }

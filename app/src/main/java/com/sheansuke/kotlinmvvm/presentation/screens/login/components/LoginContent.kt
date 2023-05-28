@@ -1,5 +1,6 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,14 +32,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.sheansuke.kotlinmvvm.R
-import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun LoginContent(navController: NavHostController) {
@@ -81,7 +83,7 @@ fun BoxHeader() {
 
 @Composable
 fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
-    val stateFlow = viewModel.loginFlow.collectAsState()
+val eventFlow = viewModel.eventFlow.collectAsState()
 
     Card(
         modifier = Modifier.padding(
@@ -111,29 +113,29 @@ fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltV
             )
 
             DefaultTextField(
-                value = viewModel.loginState.value.email,
+                value = viewModel.state.value.email,
                 onValueChange = { viewModel.onEvent(LoginEvent.InputEmail(it)) },
                 label = "Email",
                 icon = Icons.Default.Email,
                 keyboardType = KeyboardType.Email,
-                errorMsg = if (viewModel.loginState.value.isValidEmail == false) "Email no valido" else ""
+                errorMsg = if (viewModel.state.value.isValidEmail == false) "Email no valido" else ""
             )
             Spacer(modifier = Modifier.height(10.dp))
             DefaultTextField(
-                value = viewModel.loginState.value.password,
+                value = viewModel.state.value.password,
                 onValueChange = { viewModel.onEvent(LoginEvent.InputPassword(it)) },
                 label = "Password",
                 icon = Icons.Default.Lock,
                 hiddeText = true,
                 keyboardType = KeyboardType.Password,
-                errorMsg = if (viewModel.loginState.value.isValidPassword == false) "Password no valida" else ""
+                errorMsg = if (viewModel.state.value.isValidPassword == false) "Password no valida" else ""
             )
             Spacer(modifier = Modifier.height(10.dp))
 
 
             DefaultButton(
                 text = "INICIAR SESION",
-                enabled = viewModel.loginState.value.isValidForm,
+                enabled = viewModel.state.value.isValidForm,
                 onClick = {
                     viewModel.onEvent(LoginEvent.Login)
                 },
@@ -142,9 +144,9 @@ fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltV
         }
     }
 
-    stateFlow?.value.let {
+    eventFlow.value?.let {
         when (it) {
-            is Resource.Loading -> {
+            is UiEvent.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -153,7 +155,7 @@ fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltV
                 }
             }
 
-            is Resource.Success -> {
+            is UiEvent.Success -> {
                 LaunchedEffect(Unit) {
                     navController.navigate(AppScreen.Profile.routeName) {
                         popUpTo(AppScreen.Login.routeName) { inclusive = true }
@@ -162,7 +164,7 @@ fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltV
                 }
             }
 
-            is Resource.Error -> {
+            is UiEvent.Error -> {
                 Toast.makeText(LocalContext.current, "Error", Toast.LENGTH_LONG).show()
             }
 

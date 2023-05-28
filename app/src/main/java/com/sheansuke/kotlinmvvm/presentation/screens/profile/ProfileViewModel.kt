@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.sheansuke.kotlinmvvm.domain.model.User
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.AuthUseCase
 import com.sheansuke.kotlinmvvm.domain.use_case.users.UsersUseCase
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,12 +24,14 @@ class ProfileViewModel @Inject constructor(
     private val _state: MutableState<User> = mutableStateOf(User())
     val state: State<User> = _state
 
+    private val _eventFlow = MutableStateFlow<UiEvent?>(null)
+    val eventFlow = _eventFlow
+
     init {
         viewModelScope.launch {
             usersUseCase.getUserById(authUseCase.getCurrentUser()!!.uid).collect {
                 _state.value = it
             }
-
         }
     }
 
@@ -35,6 +39,7 @@ class ProfileViewModel @Inject constructor(
         when (event) {
             is ProfileEvent.Logout -> {
                 authUseCase.logout()
+                _eventFlow.value = UiEvent.Logout
             }
         }
     }

@@ -42,6 +42,7 @@ import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpViewModel
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray500
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 
@@ -87,7 +88,7 @@ fun SignUpContentBody(
     navController: NavHostController,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
-    val stateFlow = viewModel.signUpFlow.collectAsState()
+    val stateFlow = viewModel.eventFlow.collectAsState()
 
 
     Box(
@@ -183,7 +184,7 @@ fun SignUpContentBody(
 
     stateFlow?.value.let {
         when (it) {
-            is Resource.Loading -> {
+            is UiEvent.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -192,7 +193,7 @@ fun SignUpContentBody(
                 }
             }
 
-            is Resource.Success -> {
+            is UiEvent.Success -> {
                 Toast.makeText(LocalContext.current, "Usuario Logeado", Toast.LENGTH_SHORT).show()
 
                 LaunchedEffect(Unit) {
@@ -203,8 +204,8 @@ fun SignUpContentBody(
                 }
             }
 
-            is Resource.Error -> {
-                Toast.makeText(LocalContext.current, it.exception.message, Toast.LENGTH_SHORT)
+            is UiEvent.Error -> {
+                Toast.makeText(LocalContext.current, "Ocurrio un error al intentar registrarse", Toast.LENGTH_SHORT)
                     .show()
             }
 

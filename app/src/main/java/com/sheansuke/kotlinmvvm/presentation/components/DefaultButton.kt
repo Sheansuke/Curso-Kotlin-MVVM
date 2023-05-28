@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,8 @@ fun DefaultButton(
     color: Color = Red500,
     icon: ImageVector? = null,
     modifier: Modifier? = null,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    isLoading: Boolean = false
 ) {
     Button(
         modifier = modifier ?: Modifier
@@ -32,10 +34,14 @@ fun DefaultButton(
         enabled = enabled,
         onClick = { onClick() }
     ) {
-        icon?.let {
-            Icon(imageVector = icon, contentDescription = "arrow button")
+        if (!isLoading) {
+            icon?.let {
+                Icon(imageVector = icon, contentDescription = "arrow button")
+            }
         }
         Spacer(modifier = Modifier.width(10.dp))
-        Text(text = text)
+        if (!isLoading) Text(text = text) else CircularProgressIndicator(
+            color = Color.White
+        )
     }
 }

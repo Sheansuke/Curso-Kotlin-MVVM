@@ -13,6 +13,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,13 +27,17 @@ import androidx.navigation.NavHostController
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
+import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 
 @Composable
 fun ProfileContent(
     navController: NavHostController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+    val eventFlow = viewModel.eventFlow.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -97,7 +103,6 @@ fun ProfileContent(
                     navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.state.value.toJson()))
                 }
             )
-
             Spacer(modifier = Modifier.height(20.dp))
             DefaultButton(
                 modifier = Modifier
@@ -107,9 +112,24 @@ fun ProfileContent(
                 icon = Icons.Default.ExitToApp,
                 text = "Cerrar Sesion",
                 onClick = {
-                    // TODO: falta implementar el cerrar sesion
+                    viewModel.onEvent(ProfileEvent.Logout)
                 })
         }
+    }
 
+
+    eventFlow.value.let {
+        when (it) {
+            is UiEvent.Loading -> {}
+            is UiEvent.Logout -> {
+                LaunchedEffect(Unit) {
+                    navController.navigate(AppScreen.Login.routeName, {
+                        popUpTo(AppScreen.Profile.routeName, { inclusive = true })
+                    })
+                }
+            }
+
+            else -> {}
+        }
     }
 }

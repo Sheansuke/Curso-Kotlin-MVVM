@@ -18,6 +18,7 @@ import com.sheansuke.kotlinmvvm.domain.use_case.auth.Logout
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.SignUp
 import com.sheansuke.kotlinmvvm.domain.use_case.users.Create
 import com.sheansuke.kotlinmvvm.domain.use_case.users.GetUserById
+import com.sheansuke.kotlinmvvm.domain.use_case.users.Update
 import com.sheansuke.kotlinmvvm.domain.use_case.users.UsersUseCase
 import dagger.Module
 import dagger.Provides
@@ -58,7 +59,8 @@ object AppModule {
     @Provides
     fun provideUsersUseCase(repository: UsersRepository) = UsersUseCase(
         create = Create(repository),
-        getUserById = GetUserById(repository)
+        getUserById = GetUserById(repository),
+        update = Update(repository)
     )
 
 }
