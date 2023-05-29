@@ -1,6 +1,6 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.profile_edit
 
-import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -23,9 +23,6 @@ class ProfileEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _selectedImage: MutableState<Uri?> = mutableStateOf(null)
-    val selectedImage: State<Uri?> = _selectedImage
-
     private val _state: MutableState<User> = mutableStateOf(User())
     val state: State<User> = _state
 
@@ -38,6 +35,18 @@ class ProfileEditViewModel @Inject constructor(
         _state.value = user
     }
 
+    fun updateUser() {
+        _eventFlow.value = UiEvent.Loading
+        viewModelScope.launch {
+            val result = usersUseCase.update(_state.value)
+            result.collect {
+                val eventResult = handleApiResult(it)
+                _eventFlow.value = eventResult
+            }
+
+        }
+    }
+
     fun onEvent(event: ProfileEditEvent) {
         when (event) {
             is ProfileEditEvent.InputUserName -> {
@@ -47,19 +56,23 @@ class ProfileEditViewModel @Inject constructor(
             }
 
             is ProfileEditEvent.PickImage -> {
-                _selectedImage.value = event.imageUri
-            }
-
-            is ProfileEditEvent.UpdateUser -> {
                 _eventFlow.value = UiEvent.Loading
                 viewModelScope.launch {
-                    val result = usersUseCase.update(_state.value)
+                    val result = usersUseCase.uploadUserImage(event.imageUri)
                     result.collect {
                         val eventResult = handleApiResult(it)
                         _eventFlow.value = eventResult
+                        _state.value = _state.value.copy(
+                            image = it.data
+                        )
                     }
-
+                updateUser()
                 }
+
+            }
+
+            is ProfileEditEvent.UpdateUser -> {
+                updateUser()
             }
         }
     }

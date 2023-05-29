@@ -19,7 +19,7 @@ class AuthRepositoryImpl @Inject constructor(
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             Resource.Success(result.user)
         } catch (error: Exception) {
-            Resource.Error(error)
+            Resource.Error(null, error)
         }
     }
 
@@ -32,7 +32,7 @@ class AuthRepositoryImpl @Inject constructor(
             val result = firebaseAuth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
             Resource.Success(result.user)
         } catch (error: Exception) {
-            Resource.Error(error)
+            Resource.Error(null, error)
         }
     }
 

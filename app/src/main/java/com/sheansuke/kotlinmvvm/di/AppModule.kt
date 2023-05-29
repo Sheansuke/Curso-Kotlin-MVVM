@@ -5,6 +5,8 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.sheansuke.kotlinmvvm.core.Constants
 import com.sheansuke.kotlinmvvm.data.repository.AuthRepositoryImpl
 import com.sheansuke.kotlinmvvm.data.repository.UsersRespositoryImpl
@@ -19,6 +21,7 @@ import com.sheansuke.kotlinmvvm.domain.use_case.auth.SignUp
 import com.sheansuke.kotlinmvvm.domain.use_case.users.Create
 import com.sheansuke.kotlinmvvm.domain.use_case.users.GetUserById
 import com.sheansuke.kotlinmvvm.domain.use_case.users.Update
+import com.sheansuke.kotlinmvvm.domain.use_case.users.UploadUserImage
 import com.sheansuke.kotlinmvvm.domain.use_case.users.UsersUseCase
 import dagger.Module
 import dagger.Provides
@@ -28,6 +31,16 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
+//    CLOUD FIREBASE STORAGE
+
+    @Provides
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
+
+    @Provides
+    fun provideUsersStorageRef(storage: FirebaseStorage): StorageReference =
+        storage.reference.child(
+            Constants.USERS_COLLECTION
+        )
 
     //    FIREBASE
     @Provides
@@ -60,7 +73,8 @@ object AppModule {
     fun provideUsersUseCase(repository: UsersRepository) = UsersUseCase(
         create = Create(repository),
         getUserById = GetUserById(repository),
-        update = Update(repository)
+        update = Update(repository),
+        uploadUserImage = UploadUserImage(repository)
     )
 
 }

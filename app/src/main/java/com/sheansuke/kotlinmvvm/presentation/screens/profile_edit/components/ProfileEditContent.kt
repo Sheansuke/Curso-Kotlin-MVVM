@@ -37,13 +37,11 @@ import com.sheansuke.kotlinmvvm.presentation.screens.profile_edit.ProfileEditVie
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
 
-// TODO: terminar de integrar el image picker
 @Composable
 fun ProfileEditContent(
     viewModel: ProfileEditViewModel = hiltViewModel()
 ) {
     val eventFlow = viewModel.eventFlow.collectAsState()
-
 
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
@@ -83,14 +81,14 @@ fun ProfileEditContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                if (viewModel.selectedImage.value != null) {
+                if (viewModel.state.value.image != null) {
                     AsyncImage(
                         modifier = Modifier
                             .padding(bottom = 30.dp)
                             .height(120.dp)
                             .width(120.dp)
                             .clip(CircleShape),
-                        model = viewModel.selectedImage.value,
+                        model = viewModel.state.value.image,
                         contentDescription = null,
                         contentScale = ContentScale.Crop
                     )
@@ -137,4 +135,5 @@ fun ProfileEditContent(
 
         }
     }
+
 }

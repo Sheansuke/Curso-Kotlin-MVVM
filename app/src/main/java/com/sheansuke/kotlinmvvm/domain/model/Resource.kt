@@ -1,10 +1,7 @@
 package com.sheansuke.kotlinmvvm.domain.model
 
-import java.lang.Exception
-
-sealed class Resource<out T> {
-    object Loading: Resource<Nothing>()
-
-    data class Success<out T>(val data: T? = null): Resource<T>()
-    data class Error<out T>(val exception: Exception): Resource<T>()
+sealed class Resource<out T>(val data: T? = null, val exception: Exception? = null) {
+    object Loading : Resource<Nothing>()
+    class Success<out T>(data: T? = null, exception: Exception? = null) : Resource<T>(data, exception)
+    class Error<out T>(data: T? = null, exception: Exception) : Resource<T>(data, exception)
 }

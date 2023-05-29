@@ -30,7 +30,10 @@ import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
+// TODO: falta pulir lo de las imagenes de perfil
 @Composable
 fun ProfileContent(
     navController: NavHostController,
@@ -100,6 +103,10 @@ fun ProfileContent(
                 icon = Icons.Default.Edit,
                 color = Color.White,
                 onClick = {
+                    viewModel.state.value.image = URLEncoder.encode(
+                        viewModel.state.value.image,
+                        StandardCharsets.UTF_8.toString()
+                    )
                     navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.state.value.toJson()))
                 }
             )

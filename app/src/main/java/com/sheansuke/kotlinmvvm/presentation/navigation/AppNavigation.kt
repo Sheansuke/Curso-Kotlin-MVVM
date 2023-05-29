@@ -37,9 +37,7 @@ fun AppNavigation(navController: NavHostController) {
                 navArgument("user", { type = NavType.StringType })
             )
         ) {
-            it.arguments?.getString("user")?.let {
-                ProfileEditScreen(navController)
-            }
+            ProfileEditScreen(navController)
         }
     }
 }
