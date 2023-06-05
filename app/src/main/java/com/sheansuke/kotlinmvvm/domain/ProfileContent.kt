@@ -1,4 +1,4 @@
-package com.sheansuke.kotlinmvvm.presentation.screens.profile.components
+package com.sheansuke.kotlinmvvm.domain
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -17,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -24,14 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 // TODO: falta pulir lo de las imagenes de perfil
 @Composable
@@ -67,11 +69,25 @@ fun ProfileContent(
                     text = "BIENVENIDO",
                     fontSize = 30.sp
                 )
-                Image(
-                    modifier = Modifier.padding(top = 70.dp),
-                    painter = painterResource(id = R.drawable.user),
-                    contentDescription = "user icon"
-                )
+                if (viewModel.state.value.image != null) {
+                    AsyncImage(
+                        modifier = Modifier
+                            .padding(top = 90.dp)
+                            .height(120.dp)
+                            .width(120.dp)
+                            .clip(CircleShape),
+                        model = viewModel.state.value.image,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Image(
+                        modifier = Modifier
+                            .padding(bottom = 90.dp),
+                        painter = painterResource(id = R.drawable.user),
+                        contentDescription = "user icon",
+                    )
+                }
             }
 
         }
@@ -103,10 +119,6 @@ fun ProfileContent(
                 icon = Icons.Default.Edit,
                 color = Color.White,
                 onClick = {
-                    viewModel.state.value.image = URLEncoder.encode(
-                        viewModel.state.value.image,
-                        StandardCharsets.UTF_8.toString()
-                    )
                     navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.state.value.toJson()))
                 }
             )
