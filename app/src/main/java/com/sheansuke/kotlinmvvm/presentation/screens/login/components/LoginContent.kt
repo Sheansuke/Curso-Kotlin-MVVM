@@ -35,6 +35,8 @@ import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
+import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
+import com.sheansuke.kotlinmvvm.presentation.navigation.RootGraph
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -157,8 +159,8 @@ val eventFlow = viewModel.eventFlow.collectAsState()
 
             is UiEvent.Success -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(AppScreen.Profile.routeName) {
-                        popUpTo(AppScreen.Login.routeName) { inclusive = true }
+                    navController.navigate(RootGraph.HOME) {
+                        popUpTo(AuthenticationNavGraphRoutes.Login.routeName) { inclusive = true }
                     }
 
                 }

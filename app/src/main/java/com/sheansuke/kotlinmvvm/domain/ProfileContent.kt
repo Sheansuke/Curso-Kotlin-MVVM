@@ -31,6 +31,7 @@ import coil.compose.AsyncImage
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
+import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -142,7 +143,7 @@ fun ProfileContent(
             is UiEvent.Loading -> {}
             is UiEvent.Logout -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(AppScreen.Login.routeName, {
+                    navController.navigate(AuthenticationNavGraphRoutes.Login.routeName, {
                         popUpTo(AppScreen.Profile.routeName, { inclusive = true })
                     })
                 }

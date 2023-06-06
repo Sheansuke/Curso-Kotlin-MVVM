@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.sheansuke.kotlinmvvm.presentation.navigation.AppNavigation
+import com.sheansuke.kotlinmvvm.presentation.navigation.RootNavGraph
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.KotlinMVVMTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     navController = rememberNavController()
-                    AppNavigation(navController)
+                    RootNavGraph(navController)
                 }
             }
         }
