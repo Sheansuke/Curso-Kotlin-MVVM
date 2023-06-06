@@ -41,6 +41,7 @@ import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
+import com.sheansuke.kotlinmvvm.presentation.navigation.HomeScreenNavGraphRoutes
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -199,7 +200,7 @@ fun SignUpContentBody(
 
                 LaunchedEffect(Unit) {
                     viewModel.onSignUp()
-                    navController.navigate(AppScreen.Profile.routeName) {
+                    navController.navigate(HomeScreenNavGraphRoutes.Profile.routeName) {
                         popUpTo(AuthenticationNavGraphRoutes.SignUp.routeName) { inclusive = true }
                     }
                 }

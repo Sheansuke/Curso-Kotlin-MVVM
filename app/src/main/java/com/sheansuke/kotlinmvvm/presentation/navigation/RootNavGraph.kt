@@ -7,12 +7,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.sheansuke.kotlinmvvm.presentation.screens.home.HomeScreen
-import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.profile_edit.ProfileEditScreen
 
 @Composable
 fun RootNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = RootGraph.AUTHENTICATION) {
+    NavHost(navController = navController,
+        startDestination = RootGraph.AUTHENTICATION,
+        route = RootGraph.ROOT,
+    ) {
 
         authenticationNavGraph(navController)
 
@@ -20,9 +22,6 @@ fun RootNavGraph(navController: NavHostController) {
             HomeScreen()
         }
 
-        composable(AppScreen.Profile.routeName) {
-            ProfileScreen(navController)
-        }
 
         composable(
             AppScreen.ProfileEdit.routeName,
