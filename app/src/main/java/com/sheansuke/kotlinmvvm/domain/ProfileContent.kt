@@ -32,7 +32,7 @@ import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
-import com.sheansuke.kotlinmvvm.presentation.navigation.HomeScreenNavGraphRoutes
+import com.sheansuke.kotlinmvvm.presentation.navigation.HomeScreenBottomBar
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -145,7 +145,7 @@ fun ProfileContent(
             is UiEvent.Logout -> {
                 LaunchedEffect(Unit) {
                     navController.navigate(AuthenticationNavGraphRoutes.Login.routeName, {
-                        popUpTo(HomeScreenNavGraphRoutes.Profile.routeName, { inclusive = true })
+                        popUpTo(HomeScreenBottomBar.Profile.route, { inclusive = true })
                     })
                 }
             }

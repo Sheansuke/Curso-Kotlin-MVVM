@@ -36,12 +36,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.sheansuke.kotlinmvvm.R
-import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
-import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
-import com.sheansuke.kotlinmvvm.presentation.navigation.HomeScreenNavGraphRoutes
+import com.sheansuke.kotlinmvvm.presentation.navigation.HomeScreenBottomBar
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.signup.SignUpViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -200,7 +198,7 @@ fun SignUpContentBody(
 
                 LaunchedEffect(Unit) {
                     viewModel.onSignUp()
-                    navController.navigate(HomeScreenNavGraphRoutes.Profile.routeName) {
+                    navController.navigate(HomeScreenBottomBar.Profile.route) {
                         popUpTo(AuthenticationNavGraphRoutes.SignUp.routeName) { inclusive = true }
                     }
                 }

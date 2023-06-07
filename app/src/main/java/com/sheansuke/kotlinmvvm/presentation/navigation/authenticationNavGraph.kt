@@ -23,3 +23,8 @@ fun NavGraphBuilder.authenticationNavGraph(
         }
     }
 }
+
+sealed class AuthenticationNavGraphRoutes(val routeName: String) {
+    object Login : AuthenticationNavGraphRoutes("/login")
+    object SignUp : AuthenticationNavGraphRoutes("/signup")
+}

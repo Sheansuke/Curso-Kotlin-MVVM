@@ -9,7 +9,7 @@ fun MyPostsScreen() {
     Scaffold(
         topBar = {},
         content = {
-            Text(text = "My Posts Sceen")
+            Text(text = "My Posts Screen")
         },
         bottomBar = {}
     )
