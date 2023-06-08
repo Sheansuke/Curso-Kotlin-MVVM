@@ -1,6 +1,5 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login.components
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,7 +33,6 @@ import androidx.navigation.NavHostController
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
-import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
 import com.sheansuke.kotlinmvvm.presentation.navigation.RootGraph
 import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginEvent
@@ -42,7 +40,6 @@ import com.sheansuke.kotlinmvvm.presentation.screens.login.LoginViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Darkgray700
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red500
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun LoginContent(navController: NavHostController) {

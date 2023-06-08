@@ -1,5 +1,7 @@
 package com.sheansuke.kotlinmvvm.domain
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,10 +32,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sheansuke.kotlinmvvm.R
+import com.sheansuke.kotlinmvvm.presentation.MainActivity
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
-import com.sheansuke.kotlinmvvm.presentation.navigation.AppScreen
 import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
-import com.sheansuke.kotlinmvvm.presentation.navigation.HomeScreenBottomBar
+import com.sheansuke.kotlinmvvm.presentation.navigation.EditProfileNavGraphRoutes
+import com.sheansuke.kotlinmvvm.presentation.navigation.RootGraph
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -44,6 +48,7 @@ fun ProfileContent(
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
     val eventFlow = viewModel.eventFlow.collectAsState()
+    val activity = LocalContext.current as? Activity
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -121,7 +126,7 @@ fun ProfileContent(
                 icon = Icons.Default.Edit,
                 color = Color.White,
                 onClick = {
-                    navController.navigate(AppScreen.ProfileEdit.passUser(viewModel.state.value.toJson()))
+                    navController.navigate(EditProfileNavGraphRoutes.ProfileEdit.passUser(viewModel.state.value.toJson()))
                 }
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -144,9 +149,8 @@ fun ProfileContent(
             is UiEvent.Loading -> {}
             is UiEvent.Logout -> {
                 LaunchedEffect(Unit) {
-                    navController.navigate(AuthenticationNavGraphRoutes.Login.routeName, {
-                        popUpTo(HomeScreenBottomBar.Profile.route, { inclusive = true })
-                    })
+                    activity?.finish()
+                    activity?.startActivity(Intent(activity, MainActivity::class.java))
                 }
             }
 

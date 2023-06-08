@@ -15,21 +15,9 @@ fun RootNavGraph(navController: NavHostController) {
         startDestination = RootGraph.AUTHENTICATION,
         route = RootGraph.ROOT,
     ) {
-
         authenticationNavGraph(navController)
-
         composable(RootGraph.HOME) {
             HomeScreen()
-        }
-
-
-        composable(
-            AppScreen.ProfileEdit.routeName,
-            arguments = listOf(
-                navArgument("user", { type = NavType.StringType })
-            )
-        ) {
-            ProfileEditScreen(navController)
         }
     }
 }

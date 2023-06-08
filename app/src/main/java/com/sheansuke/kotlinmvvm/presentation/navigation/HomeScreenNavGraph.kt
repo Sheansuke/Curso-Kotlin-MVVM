@@ -36,6 +36,8 @@ fun HomeScreenNavGraph(
             ProfileScreen(navController)
         }
 
+        editProfileNavGraph(navController)
+
     }
 }
 
