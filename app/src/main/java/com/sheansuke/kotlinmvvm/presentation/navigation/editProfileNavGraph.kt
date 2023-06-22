@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.sheansuke.kotlinmvvm.presentation.screens.new_post.NewPostScreen
 import com.sheansuke.kotlinmvvm.presentation.screens.profile_edit.ProfileEditScreen
 
 fun NavGraphBuilder.editProfileNavGraph(navController: NavHostController) {
@@ -13,6 +14,11 @@ fun NavGraphBuilder.editProfileNavGraph(navController: NavHostController) {
         route = RootGraph.EDITPROFILE,
         startDestination = EditProfileNavGraphRoutes.ProfileEdit.routeName
     ) {
+
+        composable(EditProfileNavGraphRoutes.NewPost.routeName) {
+            NewPostScreen()
+        }
+
         composable(
             EditProfileNavGraphRoutes.ProfileEdit.routeName,
             arguments = listOf(
@@ -25,6 +31,7 @@ fun NavGraphBuilder.editProfileNavGraph(navController: NavHostController) {
 }
 
 sealed class EditProfileNavGraphRoutes(val routeName: String) {
+    object NewPost : EditProfileNavGraphRoutes("/posts/new")
     object ProfileEdit : EditProfileNavGraphRoutes("/profile/edit/{user}") {
         fun passUser(user: String) = "/profile/edit/${user}"
     }

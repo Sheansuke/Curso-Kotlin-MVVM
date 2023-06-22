@@ -24,7 +24,7 @@ fun HomeScreenNavGraph(
         startDestination = HomeScreenBottomBar.Posts.route
     ) {
         composable(HomeScreenBottomBar.Posts.route) {
-            PostsScreen()
+            PostsScreen(navController)
         }
 
         composable(HomeScreenBottomBar.MyPosts.route) {
@@ -37,6 +37,7 @@ fun HomeScreenNavGraph(
         }
 
         editProfileNavGraph(navController)
+
 
     }
 }
