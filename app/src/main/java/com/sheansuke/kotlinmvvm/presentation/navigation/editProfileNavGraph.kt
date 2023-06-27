@@ -16,7 +16,7 @@ fun NavGraphBuilder.editProfileNavGraph(navController: NavHostController) {
     ) {
 
         composable(EditProfileNavGraphRoutes.NewPost.routeName) {
-            NewPostScreen()
+            NewPostScreen(navController)
         }
 
         composable(

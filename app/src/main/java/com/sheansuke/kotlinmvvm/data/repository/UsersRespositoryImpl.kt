@@ -49,8 +49,8 @@ class UsersRespositoryImpl @Inject constructor(
     override suspend fun uploadUserImage(imageUri: Uri): Flow<Resource<String>> = flow {
         try {
             val filename = File(imageUri.path).name
-            val imageRef = usersStorageRef.child("images/${filename}")
-            val uploadTask = imageRef.putFile(imageUri).await()
+            val imageRef = usersStorageRef.child("users/images/profile/${filename}")
+            imageRef.putFile(imageUri).await()
             val imageUrl = imageRef.downloadUrl.await()
             emit(Resource.Success(imageUrl.toString()))
         } catch (error: Exception) {
