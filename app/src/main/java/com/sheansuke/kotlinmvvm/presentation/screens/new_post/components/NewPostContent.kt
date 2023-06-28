@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -40,9 +43,13 @@ import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red200
 
 @Composable
 fun NewPostContent(
-    viewModel: NewPostViewModel = hiltViewModel()
+    paddingValues: PaddingValues, viewModel: NewPostViewModel = hiltViewModel()
 ) {
-    Column {
+    Column(
+        modifier = Modifier
+            .padding(paddingValues)
+            .verticalScroll(rememberScrollState())
+    ) {
         Header(viewModel)
         Body(viewModel)
 
@@ -82,8 +89,7 @@ fun Header(
             if (viewModel.state.value.gameImageUri != null) {
                 AsyncImage(
                     contentScale = ContentScale.FillBounds,
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     model = viewModel.state.value.gameImageUri,
                     contentDescription = "Picked Image New Post"
                 )
@@ -151,7 +157,8 @@ fun RadioButtonGroup(
     ) {
         radioButtonItems.forEach {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 10.dp)
             ) {
                 RadioButton(selected = it.name == viewModel.state.value.gameCategory, onClick = {
                     viewModel.onEvent(NewPostEvent.SelectGameCategory(it.name))

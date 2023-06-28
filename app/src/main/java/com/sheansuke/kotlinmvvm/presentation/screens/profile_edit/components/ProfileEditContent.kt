@@ -43,16 +43,15 @@ fun ProfileEditContent(
 ) {
     val eventFlow = viewModel.eventFlow.collectAsState()
 
-    val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = { uri -> uri?.let { viewModel.onEvent(ProfileEditEvent.PickImage(uri)) } })
+    val singlePhotoPickerLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia(),
+            onResult = { uri -> uri?.let { viewModel.onEvent(ProfileEditEvent.PickImage(uri)) } })
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Box(
                 modifier = Modifier
@@ -61,8 +60,7 @@ fun ProfileEditContent(
                     .background(Red500)
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(

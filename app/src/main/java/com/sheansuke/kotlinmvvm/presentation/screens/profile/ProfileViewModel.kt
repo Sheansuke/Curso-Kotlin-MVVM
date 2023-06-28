@@ -29,8 +29,10 @@ class ProfileViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            eventFlow.value = UiEvent.Loading
             usersUseCase.getUserById(authUseCase.getCurrentUser()!!.uid).collect {
                 _state.value = it
+                eventFlow.value = UiEvent.Success
             }
         }
     }

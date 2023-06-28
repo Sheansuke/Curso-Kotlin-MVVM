@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -30,13 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.MainActivity
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultButton
-import com.sheansuke.kotlinmvvm.presentation.navigation.AuthenticationNavGraphRoutes
 import com.sheansuke.kotlinmvvm.presentation.navigation.EditProfileNavGraphRoutes
-import com.sheansuke.kotlinmvvm.presentation.navigation.RootGraph
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
@@ -44,8 +43,7 @@ import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 // TODO: falta pulir lo de las imagenes de perfil
 @Composable
 fun ProfileContent(
-    navController: NavHostController,
-    viewModel: ProfileViewModel = hiltViewModel()
+    navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()
 ) {
     val eventFlow = viewModel.eventFlow.collectAsState()
     val activity = LocalContext.current as? Activity
@@ -54,8 +52,7 @@ fun ProfileContent(
         modifier = Modifier.fillMaxSize()
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             Image(
                 modifier = Modifier
@@ -67,34 +64,29 @@ fun ProfileContent(
             )
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    modifier = Modifier.padding(top = 50.dp),
-                    text = "BIENVENIDO",
-                    fontSize = 30.sp
+                    modifier = Modifier.padding(top = 50.dp), text = "BIENVENIDO", fontSize = 30.sp
                 )
-                if (viewModel.state.value.image != null) {
-                    AsyncImage(
-                        modifier = Modifier
-                            .padding(top = 90.dp)
-                            .height(120.dp)
-                            .width(120.dp)
-                            .clip(CircleShape),
-                        model = viewModel.state.value.image,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop
-                    )
-                } else {
-                    Image(
-                        modifier = Modifier
-                            .padding(bottom = 90.dp),
-                        painter = painterResource(id = R.drawable.user),
-                        contentDescription = "user icon",
-                    )
-                }
+                SubcomposeAsyncImage(modifier = Modifier
+                    .padding(top = 90.dp)
+                    .height(120.dp)
+                    .width(120.dp)
+                    .clip(CircleShape),
+                    model = viewModel.state.value.image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    loading = { CircularProgressIndicator() },
+                    error = {
+                        Image(
+                            painter = painterResource(id = R.drawable.user),
+                            contentDescription = "user icon",
+                        )
+                    }
+
+                )
             }
 
         }
@@ -106,35 +98,30 @@ fun ProfileContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                fontSize = 25.sp,
-                text = viewModel.state.value.username ?: ""
+                fontSize = 25.sp, text = viewModel.state.value.username ?: ""
             )
             Text(
-                color = Color.Gray,
-                text = viewModel.state.value.email ?: ""
+                color = Color.Gray, text = viewModel.state.value.email ?: ""
             )
         }
 
         Column() {
             Spacer(modifier = Modifier.height(20.dp))
-            DefaultButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(horizontal = 20.dp, vertical = 0.dp),
+            DefaultButton(modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(horizontal = 20.dp, vertical = 0.dp),
                 text = "Editar Datos",
                 icon = Icons.Default.Edit,
                 color = Color.White,
                 onClick = {
                     navController.navigate(EditProfileNavGraphRoutes.ProfileEdit.passUser(viewModel.state.value.toJson()))
-                }
-            )
+                })
             Spacer(modifier = Modifier.height(20.dp))
-            DefaultButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(horizontal = 20.dp, vertical = 0.dp),
+            DefaultButton(modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(horizontal = 20.dp, vertical = 0.dp),
                 icon = Icons.Default.ExitToApp,
                 text = "Cerrar Sesion",
                 onClick = {

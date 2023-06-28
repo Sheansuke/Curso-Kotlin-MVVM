@@ -10,11 +10,12 @@ import com.sheansuke.kotlinmvvm.presentation.screens.new_post.components.NewPost
 
 @Composable
 fun NewPostScreen(navController: NavHostController) {
-    Scaffold(topBar = {
-        NewPostTopBar(navController)
-    }, content = {
-        NewPostContent()
-    }, bottomBar = {
-        NewPostBottomBar()
-    })
+    Scaffold(
+        topBar = {
+            NewPostTopBar(navController)
+        }, content = {
+            NewPostContent(it)
+        }, bottomBar = {
+            NewPostBottomBar()
+        })
 }
