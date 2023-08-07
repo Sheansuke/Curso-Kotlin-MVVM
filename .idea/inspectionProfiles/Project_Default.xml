@@ -130,6 +130,7 @@
     <inspection_tool class="AndroidLintBlockedPrivateApi" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintBomWithoutPlatform" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintBottomAppBar" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
@@ -261,6 +262,7 @@
     <inspection_tool class="AndroidLintEasterEgg" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintEditedTargetSdkVersion" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintEllipsizeMaxLines" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
@@ -273,6 +275,7 @@
     <inspection_tool class="AndroidLintEnqueueWork" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintExactAlarm" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintExifInterface" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -531,6 +534,7 @@
     <inspection_tool class="AndroidLintJobSchedulerService" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintKaptUsageInsteadOfKsp" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintKeyboardInaccessibleWidget" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -543,6 +547,7 @@
     <inspection_tool class="AndroidLintKotlinPropertyAccess" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintKotlincFE10" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintKtxExtensionAvailable" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="INFO" enabled="true" />
     </inspection_tool>
@@ -714,6 +719,7 @@
     <inspection_tool class="AndroidLintNoHardKeywords" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintNoOp" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintNonConstantResourceId" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -826,6 +832,7 @@
     <inspection_tool class="AndroidLintProtectedPermissions" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintProviderReadPermissionOnly" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintProxyPassword" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -862,9 +869,11 @@
     <inspection_tool class="AndroidLintRelativeOverlap" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintRememberReturnType" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintRemoteViewLayout" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintReportShortcutUsage" enabled="false" level="INFO" enabled_by_default="false" />
     <inspection_tool class="AndroidLintRequiredSize" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
@@ -919,6 +928,7 @@
     <inspection_tool class="AndroidLintSSLCertificateSocketFactoryGetInsecure" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintScheduleExactAlarm" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintScopedStorage" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1103,6 +1113,8 @@
     <inspection_tool class="AndroidLintUnsafeDynamicallyLoadedCode" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintUnsafeImplicitIntentLaunch" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="AndroidLintUnsafeIntentLaunch" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintUnsafeNativeCodeLocation" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1112,6 +1124,7 @@
     <inspection_tool class="AndroidLintUnspecifiedImmutableFlag" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintUnspecifiedRegisterReceiverFlag" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintUnsupportedChromeOsCameraSystemFeature" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1158,6 +1171,7 @@
     <inspection_tool class="AndroidLintUseSparseArrays" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintUseTomlInstead" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintUseValueOf" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1299,6 +1313,8 @@
     <inspection_tool class="AndroidUnresolvedRoomSqlReference" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="ERROR" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AnimateAsStateLabel" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="AnimatedContentLabel" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="Annotation" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AnnotationClass" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="Annotator" enabled="true" level="TYPO" enabled_by_default="true">
@@ -1425,6 +1441,8 @@
     <inspection_tool class="ButtonSize" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Open Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="CMakeDeprecatedCommands" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CMakeMismatchedCommandArguments" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CStyleArrayDeclaration" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="CachedNumberConstructorCall" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="CallDealloc" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -1462,6 +1480,7 @@
       <scope name="Project Files" level="INFO" enabled="true" />
     </inspection_tool>
     <inspection_tool class="CastCanBeRemovedNarrowingVariableType" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="CastCanBeReplacedWithVariable" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="CastConflictsWithInstanceof" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CastDueToProgressionResolutionChangeMigration" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
@@ -1604,6 +1623,7 @@
     <inspection_tool class="ConditionalCanBePushedInsideExpression" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="ConditionalExpression" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="ConditionalExpressionWithIdenticalBranches" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ConfigurationAvoidance" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ConflictingExtensionProperty" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1636,6 +1656,7 @@
     <inspection_tool class="ConstantMathCall" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ConstantOnWrongSideOfComparison" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ConstantParameter" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="ConstantValue" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ConstantValueVariableUse" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ConstructionIsNotAllowed" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="Constructor" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -1668,6 +1689,7 @@
     <inspection_tool class="ConvertNaNEquality" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="ConvertObjectToDataObject" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="ConvertOldAnnotations" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ConvertPairConstructorToToFunction" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="INFORMATION" enabled="true" />
@@ -1693,6 +1715,7 @@
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="CovariantEquals" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="CrossfadeLabel" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CustomClassloader" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CustomSecurityManager" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="CyclicClassDependency" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -1702,6 +1725,8 @@
     </inspection_tool>
     <inspection_tool class="DanglingJavadoc" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="DanglingPointer" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="DartOutdatedDependencies" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="DartPathPackageReference" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="DataClassPrivateConstructor" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1711,6 +1736,7 @@
       <option name="ignoreLocalVariables" value="false" />
       <option name="ignorePrivateMethodsAndFields" value="false" />
     </inspection_tool>
+    <inspection_tool class="DeclaringClassMigration" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="DefaultAnnotationParam" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="DefaultFileTemplate" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true">
@@ -1734,11 +1760,13 @@
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="Dependency" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="DependencyNotationArgument" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="DeprecatedApi" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="DeprecatedCallableAddReplaceWith" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="INFO" enabled="true" />
     </inspection_tool>
     <inspection_tool class="DeprecatedClassUsageInspection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="DeprecatedConfigurations" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="DeprecatedGradleDependency" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -1924,6 +1952,7 @@
     <inspection_tool class="EqualsWhichDoesntCheckParameterClass" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="EqualsWithItself" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ErrorRethrown" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="EscapedSpace" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ExceptionFromCatchWhichDoesntWrap" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoreGetMessage" value="false" />
       <option name="ignoreCantWrap" value="false" />
@@ -1991,6 +2020,7 @@
     <inspection_tool class="FloatingPointLiteralPrecision" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="FlutterDependency" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="FoldExpressionIntoStream" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="FoldInitializerAndIfToElvis" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="INFO" enabled="true" />
@@ -2009,6 +2039,7 @@
       <option name="ignoreCollectionLoops" value="false" />
     </inspection_tool>
     <inspection_tool class="ForeachStatement" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="ForeignDelegate" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="FormatSpecifiers" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ForwardCompatibility" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="FrequentlyUsedInheritorInspection" enabled="true" level="INFORMATION" enabled_by_default="true" />
@@ -2259,6 +2290,7 @@
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
     <inspection_tool class="HtmlUnknownTarget" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="HtmlWrongAttributeValue" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="IOResource" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoredTypesString" value="java.io.ByteArrayOutputStream,java.io.ByteArrayInputStream,java.io.StringBufferInputStream,java.io.CharArrayWriter,java.io.CharArrayReader,java.io.StringWriter,java.io.StringReader" />
       <option name="insideTryAllowed" value="false" />
@@ -2330,14 +2362,18 @@
     </inspection_tool>
     <inspection_tool class="InconsistentResourceBundle" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="InconsistentTextBlockIndent" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="IncorrectDateTimeFormat" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="IncorrectFormatting" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="IncorrectParentDisposable" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="IncorrectPluginDslStructure" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="IncrementDecrementUsedAsExpression" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="IndexOfReplaceableByContains" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="InfiniteLoopStatement" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="InfinitePropertiesLabel" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="InfiniteRecursion" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="InfiniteTransitionLabel" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="InitializationIssue" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="InitializerIssues" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="InjectedReferences" enabled="true" level="TYPO" enabled_by_default="true">
@@ -2662,8 +2698,12 @@
     <inspection_tool class="MapReplaceableByEnumMap" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MarkdownIncorrectTableFormatting" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="MarkdownIncorrectlyNumberedListItem" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="MarkdownLinkDestinationWithSpaces" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MarkdownNoTableBorders" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="MarkdownOutdatedTableOfContents" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MarkdownUnresolvedFileReference" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="MarkdownUnresolvedHeaderReference" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="MarkdownUnresolvedLinkLabel" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MarkedForRemoval" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="MarkerInterface" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MaskedAssertion" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -2728,6 +2768,7 @@
         <value />
       </option>
     </inspection_tool>
+    <inspection_tool class="MismatchedJavadocCode" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="MismatchedStringBuilderQueryUpdate" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="MismatchedStringCase" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="MisorderedAssertEqualsArguments" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -2783,6 +2824,7 @@
     <inspection_tool class="NakedNotify" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NamedResource" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="NativeMethods" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="NavigationFile" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="NegatedConditional" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="m_ignoreNegatedNullComparison" value="true" />
     </inspection_tool>
@@ -2792,6 +2834,7 @@
       <option name="m_ignoreNegatedNullComparison" value="true" />
       <option name="m_ignoreNegatedZeroComparison" value="false" />
     </inspection_tool>
+    <inspection_tool class="NegativeIntConstantInLongContext" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NegativelyNamedBooleanVariable" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NestedAssignment" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NestedConditionalExpression" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -2933,6 +2976,7 @@
       <scope name="Project Files" level="INFO" enabled="true" />
     </inspection_tool>
     <inspection_tool class="ObjectNotify" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="ObjectPrivatePropertyName" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="ObjectPropertyName" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
@@ -2951,6 +2995,7 @@
     <inspection_tool class="OctalAndDecimalIntegersMixed" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="OctalLiteral" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="OnDemandImport" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="OnlyOneElementUsed" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="OptionalAssignedToNull" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="OptionalContainsCollection" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="OptionalExpectation" enabled="true" level="TYPO" enabled_by_default="true">
@@ -3057,6 +3102,7 @@
     </inspection_tool>
     <inspection_tool class="PluginXmlCapitalization" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="PluginXmlDynamicPlugin" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PluginXmlExtensionRegistration" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="PluginXmlI18n" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="PluginXmlValidity" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="PointerTypeRequired" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -3212,6 +3258,7 @@
     </inspection_tool>
     <inspection_tool class="RedundantComparatorComparing" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="RedundantCompareCall" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="RedundantCompareToJavaTime" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="RedundantElseInIf" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="INFORMATION" enabled="true" />
     </inspection_tool>
@@ -3224,6 +3271,7 @@
     <inspection_tool class="RedundantEnumConstructorInvocation" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="RedundantEscapeInRegexReplacement" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="RedundantExplicitClose" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="RedundantExplicitType" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
@@ -3255,6 +3303,7 @@
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
     <inspection_tool class="RedundantLambdaParameterType" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="RedundantLengthCheck" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="RedundantMethodOverride" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="RedundantModalityModifier" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
@@ -3438,9 +3487,11 @@
     <inspection_tool class="ReplaceRangeStartEndInclusiveWithFirstLast" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="ReplaceRangeToWithRangeUntil" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="ReplaceRangeToWithUntil" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="ReplaceReadLineWithReadln" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="ReplaceSizeCheckWithIsNotEmpty" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
@@ -3471,6 +3522,7 @@
     <inspection_tool class="ReplaceToWithInfixForm" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="ReplaceUntilWithRangeUntil" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="ReplaceWithEnumMap" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
@@ -3484,6 +3536,7 @@
     <inspection_tool class="ReplaceWithOperatorAssignment" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="ReplaceWithStringBuilderAppendRange" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="RequiredAttributes" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myAdditionalRequiredHtmlAttributes" value="" />
     </inspection_tool>
@@ -3733,6 +3786,7 @@
     <inspection_tool class="SuspiciousVarProperty" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="SwitchExpressionCanBePushedDown" enabled="false" level="INFORMATION" enabled_by_default="false" />
     <inspection_tool class="SwitchLabeledRuleCanBeCodeBlock" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="SwitchStatement" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SwitchStatementDensity" enabled="false" level="WARNING" enabled_by_default="false">
@@ -3784,6 +3838,7 @@
     <inspection_tool class="TestFunctionName" enabled="true" level="TYPO" enabled_by_default="true">
       <scope name="Project Files" level="WEAK WARNING" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="TestInProductSource" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="TestMethodInProductCode" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="TestMethodIsPublicVoidNoArg" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="TestMethodWithoutAssertion" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -3971,6 +4026,7 @@
     <inspection_tool class="UnsafeVfsRecursion" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UnsatisfiedRange" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UnsecureRandomNumberGeneration" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="UnspecifiedActionsPlace" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="UnstableApiUsage" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UnstableTypeUsedInSignature" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="UnusedAssignment" enabled="true" level="WARNING" enabled_by_default="true">

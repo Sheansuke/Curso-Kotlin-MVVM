@@ -86,11 +86,11 @@ fun Header(
         Column(
             modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (viewModel.state.value.gameImageUri != null) {
+            if (viewModel.state.value.imageUri != null) {
                 AsyncImage(
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier.fillMaxSize(),
-                    model = viewModel.state.value.gameImageUri,
+                    model = viewModel.state.value.imageUri,
                     contentDescription = "Picked Image New Post"
                 )
             } else {
@@ -118,13 +118,13 @@ fun Body(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DefaultTextField(
-            Modifier.fillMaxWidth(), value = viewModel.state.value.gameName ?: "", onValueChange = {
+            Modifier.fillMaxWidth(), value = viewModel.state.value.name ?: "", onValueChange = {
                 viewModel.onEvent(NewPostEvent.InputGameName(it))
             }, label = "Nombre del juego", icon = Icons.Default.Face
         )
         DefaultTextField(
             Modifier.fillMaxWidth(),
-            value = viewModel.state.value.gameDescription ?: "",
+            value = viewModel.state.value.description ?: "",
             onValueChange = {
                 viewModel.onEvent(NewPostEvent.InputGameDescription(it))
             },
@@ -160,7 +160,7 @@ fun RadioButtonGroup(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 10.dp)
             ) {
-                RadioButton(selected = it.name == viewModel.state.value.gameCategory, onClick = {
+                RadioButton(selected = it.name == viewModel.state.value.category, onClick = {
                     viewModel.onEvent(NewPostEvent.SelectGameCategory(it.name))
                 })
                 Row() {

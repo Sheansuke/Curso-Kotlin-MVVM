@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -82,7 +83,11 @@ fun BoxHeader() {
 
 @Composable
 fun CardForm(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
-val eventFlow = viewModel.eventFlow.collectAsState()
+    val eventFlow = viewModel.eventFlow.collectAsState()
+
+    val onLoginEvent = remember() {
+        viewModel::onEvent
+    }
 
     Card(
         modifier = Modifier.padding(
@@ -113,7 +118,7 @@ val eventFlow = viewModel.eventFlow.collectAsState()
 
             DefaultTextField(
                 value = viewModel.state.value.email,
-                onValueChange = { viewModel.onEvent(LoginEvent.InputEmail(it)) },
+                onValueChange = { onLoginEvent(LoginEvent.InputEmail(it)) },
                 label = "Email",
                 icon = Icons.Default.Email,
                 keyboardType = KeyboardType.Email,
@@ -122,7 +127,7 @@ val eventFlow = viewModel.eventFlow.collectAsState()
             Spacer(modifier = Modifier.height(10.dp))
             DefaultTextField(
                 value = viewModel.state.value.password,
-                onValueChange = { viewModel.onEvent(LoginEvent.InputPassword(it)) },
+                onValueChange = { onLoginEvent(LoginEvent.InputPassword(it)) },
                 label = "Password",
                 icon = Icons.Default.Lock,
                 hiddeText = true,
@@ -136,7 +141,7 @@ val eventFlow = viewModel.eventFlow.collectAsState()
                 text = "INICIAR SESION",
                 enabled = viewModel.state.value.isValidForm,
                 onClick = {
-                    viewModel.onEvent(LoginEvent.Login)
+                    onLoginEvent(LoginEvent.Login)
                 },
 //
             )

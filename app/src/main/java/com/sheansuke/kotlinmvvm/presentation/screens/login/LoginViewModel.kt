@@ -1,9 +1,7 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.login
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,11 +11,8 @@ import com.sheansuke.kotlinmvvm.presentation.screens.utils.handleApiResult
 import com.sheansuke.kotlinmvvm.presentation.utils.validateEmail
 import com.sheansuke.kotlinmvvm.presentation.utils.validatePassword
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -61,7 +56,7 @@ class LoginViewModel @Inject constructor(
             }
 
             is LoginEvent.Login -> {
-                    _eventFlow.value = UiEvent.Loading
+                _eventFlow.value = UiEvent.Loading
                 viewModelScope.launch {
                     val (email, password) = _state.value
                     val result = authUseCase.login(email, password)

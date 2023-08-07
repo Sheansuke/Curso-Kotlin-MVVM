@@ -21,25 +21,25 @@ class NewPostViewModel @Inject constructor() : ViewModel() {
         when (event) {
             is NewPostEvent.InputGameName -> {
                 _state.value = _state.value.copy(
-                    gameName = event.gameName
+                    name = event.gameName
                 )
             }
 
             is NewPostEvent.InputGameDescription -> {
                 _state.value = _state.value.copy(
-                    gameDescription = event.gameDescription
+                    description = event.gameDescription
                 )
             }
 
             is NewPostEvent.SelectGameCategory -> {
                 _state.value = _state.value.copy(
-                    gameCategory = event.gameCategory
+                    category = event.gameCategory
                 )
             }
 
             is NewPostEvent.PickGameImageUri -> {
                 _state.value = _state.value.copy(
-                    gameImageUri = event.gameImageUri
+                    imageUri = event.gameImageUri
                 )
             }
 
