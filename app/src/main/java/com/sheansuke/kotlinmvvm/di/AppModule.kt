@@ -27,6 +27,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -34,34 +36,59 @@ object AppModule {
 //    CLOUD FIREBASE STORAGE
 
     @Provides
+    @Singleton
     fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
 
     @Provides
+    @Singleton
+    @Named(Constants.USERS_COLLECTION)
     fun provideUsersStorageRef(storage: FirebaseStorage): StorageReference =
         storage.reference.child(
             Constants.USERS_COLLECTION
         )
 
+    @Provides
+    @Singleton
+    @Named(Constants.POST_COLLECTION)
+    fun providePostsStorageRef(storage: FirebaseStorage): StorageReference =
+        storage.reference.child(
+            Constants.POST_COLLECTION
+        )
+
     //    FIREBASE
     @Provides
+    @Singleton
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
+    @Singleton
     fun provideFirebaseFirestore(): FirebaseFirestore = Firebase.firestore
 
+    // FIREBASE COLLECTION
     @Provides
+    @Singleton
+    @Named(Constants.USERS_COLLECTION)
     fun provideUsersRef(db: FirebaseFirestore): CollectionReference =
         db.collection(Constants.USERS_COLLECTION)
 
+    @Provides
+    @Singleton
+    @Named(Constants.POST_COLLECTION)
+    fun providePostsRef(db: FirebaseFirestore): CollectionReference =
+        db.collection(Constants.POST_COLLECTION)
+
     // REPOSITORY
     @Provides
+    @Singleton
     fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository = impl
 
     @Provides
+    @Singleton
     fun provideUsersRepository(impl: UsersRespositoryImpl): UsersRepository = impl
 
     // USE CASE
     @Provides
+    @Singleton
     fun provideAuthUseCase(repository: AuthRepository) = AuthUseCase(
         getCurrentUser = GetCurrentUser(repository),
         login = Login(repository),
@@ -70,6 +97,7 @@ object AppModule {
     )
 
     @Provides
+    @Singleton
     fun provideUsersUseCase(repository: UsersRepository) = UsersUseCase(
         create = Create(repository),
         getUserById = GetUserById(repository),

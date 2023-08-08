@@ -3,6 +3,7 @@ package com.sheansuke.kotlinmvvm.data.repository
 import android.net.Uri
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.StorageReference
+import com.sheansuke.kotlinmvvm.core.Constants
 import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.domain.model.User
 import com.sheansuke.kotlinmvvm.domain.repository.UsersRepository
@@ -13,10 +14,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
 class UsersRespositoryImpl @Inject constructor(
-    private val usersRef: CollectionReference,
-    private val usersStorageRef: StorageReference
+    @Named(Constants.USERS_COLLECTION) private val usersRef: CollectionReference,
+    @Named(Constants.USERS_COLLECTION) private val usersStorageRef: StorageReference
 ) : UsersRepository {
     override suspend fun create(user: User): Resource<Boolean> {
         return try {
