@@ -9,15 +9,18 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.sheansuke.kotlinmvvm.core.Constants
 import com.sheansuke.kotlinmvvm.data.repository.AuthRepositoryImpl
+import com.sheansuke.kotlinmvvm.data.repository.PostRepositoryImpl
 import com.sheansuke.kotlinmvvm.data.repository.UsersRespositoryImpl
 import com.sheansuke.kotlinmvvm.domain.repository.AuthRepository
+import com.sheansuke.kotlinmvvm.domain.repository.PostRepository
 import com.sheansuke.kotlinmvvm.domain.repository.UsersRepository
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.AuthUseCase
-
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.GetCurrentUser
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.Login
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.Logout
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.SignUp
+import com.sheansuke.kotlinmvvm.domain.use_case.posts.CreatePost
+import com.sheansuke.kotlinmvvm.domain.use_case.posts.PostUseCase
 import com.sheansuke.kotlinmvvm.domain.use_case.users.Create
 import com.sheansuke.kotlinmvvm.domain.use_case.users.GetUserById
 import com.sheansuke.kotlinmvvm.domain.use_case.users.Update
@@ -86,6 +89,10 @@ object AppModule {
     @Singleton
     fun provideUsersRepository(impl: UsersRespositoryImpl): UsersRepository = impl
 
+    @Provides
+    @Singleton
+    fun providePostsRepository(impl: PostRepositoryImpl): PostRepository = impl
+
     // USE CASE
     @Provides
     @Singleton
@@ -103,6 +110,12 @@ object AppModule {
         getUserById = GetUserById(repository),
         update = Update(repository),
         uploadUserImage = UploadUserImage(repository)
+    )
+
+    @Provides
+    @Singleton
+    fun providePostsUseCase(repository: PostRepository) = PostUseCase(
+        create = CreatePost(repository)
     )
 
 }

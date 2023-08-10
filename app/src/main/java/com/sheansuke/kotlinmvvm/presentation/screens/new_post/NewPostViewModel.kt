@@ -5,12 +5,17 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sheansuke.kotlinmvvm.domain.use_case.posts.PostUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class NewPostViewModel @Inject constructor() : ViewModel() {
+class NewPostViewModel @Inject constructor(
+    private val postUseCase: PostUseCase
+) : ViewModel() {
 
     private val _state: MutableState<NewPostState> = mutableStateOf(
         NewPostState()
@@ -44,7 +49,13 @@ class NewPostViewModel @Inject constructor() : ViewModel() {
             }
 
             is NewPostEvent.CreatePost -> {
-                Log.i("newpost", _state.toString())
+                val newPost = _state.value.toPostModel()
+                val newImageUri = _state.value.imageUri
+                viewModelScope.launch {
+                    postUseCase.create(newPost, newImageUri).collect {
+                        Log.i("result", it.toString())
+                    }
+                }
             }
         }
     }

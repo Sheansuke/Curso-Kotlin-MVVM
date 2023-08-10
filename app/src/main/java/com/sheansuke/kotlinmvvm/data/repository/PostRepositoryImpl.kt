@@ -1,6 +1,7 @@
 package com.sheansuke.kotlinmvvm.data.repository
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.StorageReference
 import com.sheansuke.kotlinmvvm.core.Constants
@@ -18,31 +19,36 @@ class PostRepositoryImpl @Inject constructor(
     @Named(Constants.POST_COLLECTION) private val postsRef: CollectionReference,
     @Named(Constants.POST_COLLECTION) private val postsStorageRef: StorageReference
 ) : PostRepository {
-    override suspend fun create(newPost: Posts, imageUri: Uri): Flow<Resource<Posts>> = flow {
-        emit(Resource.Loading)
-        try {
-            val fileNamed = File(imageUri.path).name
-            val imageRef = postsStorageRef.storage.reference.child("/images/${fileNamed}")
-            val uploadImage = imageRef.putFile(imageUri).await()
-            val imageUrl = uploadImage.storage.downloadUrl.await()
+    override suspend fun create(newPost: Posts, imageUri: Uri?): Flow<Resource<Posts>> =
+        flow {
+            Log.i("newPost", newPost.toString())
+            emit(Resource.Loading)
+            try {
 
-            val newCreatedPost = postsRef.add(
-                newPost.copy(
-                    imageUrl = imageUrl.toString()
-                )
-            )
+                var imageUrl: String? = ""
+                if (imageUri != null) {
+                    val fileNamed = File(imageUri.path).name
+                    val imageRef = postsStorageRef.storage.reference.child("/images/${fileNamed}")
+                    val uploadImage = imageRef.putFile(imageUri).await()
+                    imageUrl = uploadImage.storage.downloadUrl.await().toString()
+                }
 
-            emit(
-                Resource.Success(
-                    newCreatedPost.result.get().await().toObject(Posts::class.java)
+                val newCreatedPost = postsRef.add(
+                    newPost.copy(
+                        imageUrl = imageUrl.toString()
+                    )
+                ).await()
+                emit(
+                    Resource.Success(
+                        newCreatedPost.get().await().toObject(Posts::class.java)
+                    )
                 )
-            )
-        } catch (error: Exception) {
-            emit(
-                Resource.Error(
-                    data = null, exception = error
+            } catch (error: Exception) {
+                emit(
+                    Resource.Error(
+                        data = null, exception = error
+                    )
                 )
-            )
+            }
         }
-    }
 }
