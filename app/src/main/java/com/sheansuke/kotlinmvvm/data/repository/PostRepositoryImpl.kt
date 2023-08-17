@@ -1,12 +1,12 @@
 package com.sheansuke.kotlinmvvm.data.repository
 
 import android.net.Uri
-import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.StorageReference
 import com.sheansuke.kotlinmvvm.core.Constants
 import com.sheansuke.kotlinmvvm.domain.model.Posts
 import com.sheansuke.kotlinmvvm.domain.model.Resource
+import com.sheansuke.kotlinmvvm.domain.repository.AuthRepository
 import com.sheansuke.kotlinmvvm.domain.repository.PostRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,11 +17,11 @@ import javax.inject.Named
 
 class PostRepositoryImpl @Inject constructor(
     @Named(Constants.POST_COLLECTION) private val postsRef: CollectionReference,
-    @Named(Constants.POST_COLLECTION) private val postsStorageRef: StorageReference
+    @Named(Constants.POST_COLLECTION) private val postsStorageRef: StorageReference,
+    private val authRepository: AuthRepository
 ) : PostRepository {
     override suspend fun create(newPost: Posts, imageUri: Uri?): Flow<Resource<Posts>> =
         flow {
-            Log.i("newPost", newPost.toString())
             emit(Resource.Loading)
             try {
 
@@ -33,8 +33,10 @@ class PostRepositoryImpl @Inject constructor(
                     imageUrl = uploadImage.storage.downloadUrl.await().toString()
                 }
 
+                val currentUserId = authRepository.currentUser?.uid!!
                 val newCreatedPost = postsRef.add(
                     newPost.copy(
+                        userId = currentUserId,
                         imageUrl = imageUrl.toString()
                     )
                 ).await()

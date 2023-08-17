@@ -9,7 +9,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,14 +17,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -33,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.sheansuke.kotlinmvvm.R
 import com.sheansuke.kotlinmvvm.presentation.components.DefaultTextField
@@ -42,16 +43,10 @@ import com.sheansuke.kotlinmvvm.presentation.screens.new_post.PostCategoryRadioB
 import com.sheansuke.kotlinmvvm.presentation.ui.theme.Red200
 
 @Composable
-fun NewPostContent(
-    paddingValues: PaddingValues, viewModel: NewPostViewModel = hiltViewModel()
-) {
-    Column(
-        modifier = Modifier
-            .padding(paddingValues)
-            .verticalScroll(rememberScrollState())
-    ) {
-        Header(viewModel)
-        Body(viewModel)
+fun NewPostContent() {
+    Column() {
+        Header()
+        Body()
 
         Row(
             modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
@@ -60,18 +55,22 @@ fun NewPostContent(
                 fontSize = 20.sp, text = "CATEGORIAS"
             )
         }
-        RadioButtonGroup(viewModel)
+        RadioButtonGroup()
     }
 }
 
 @Composable
 fun Header(
-    viewModel: NewPostViewModel
+    viewModel: NewPostViewModel = hiltViewModel()
 ) {
+
+    val newPostEvent = remember {
+        viewModel::onEvent
+    }
 
     val singlePhotoPickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia(),
-            onResult = { uri -> uri?.let { viewModel.onEvent(NewPostEvent.PickGameImageUri(uri)) } })
+            onResult = { uri -> uri?.let { newPostEvent(NewPostEvent.PickGameImageUri(uri)) } })
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -108,8 +107,14 @@ fun Header(
 
 @Composable
 fun Body(
-    viewModel: NewPostViewModel
+    viewModel: NewPostViewModel = hiltViewModel()
 ) {
+
+    val state = viewModel.state.collectAsStateWithLifecycle()
+
+    val newPostEvent = remember() {
+        viewModel::onEvent
+    }
 
     Column(
         modifier = Modifier
@@ -118,50 +123,50 @@ fun Body(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         DefaultTextField(
-            Modifier.fillMaxWidth(), value = viewModel.state.value.name ?: "", onValueChange = {
-                viewModel.onEvent(NewPostEvent.InputGameName(it))
+            Modifier.fillMaxWidth(), value = state.value.name ?: "", onValueChange = {
+                newPostEvent(NewPostEvent.InputGameName(it))
             }, label = "Nombre del juego", icon = Icons.Default.Face
         )
         DefaultTextField(
-            Modifier.fillMaxWidth(),
-            value = viewModel.state.value.description ?: "",
-            onValueChange = {
-                viewModel.onEvent(NewPostEvent.InputGameDescription(it))
-            },
-            label = "Descripcion",
-            icon = Icons.Default.List
+            Modifier.fillMaxWidth(), value = state.value.description ?: "", onValueChange = {
+                newPostEvent(NewPostEvent.InputGameDescription(it))
+            }, label = "Descripcion", icon = Icons.Default.List
         )
+
     }
 }
 
 @Composable
 fun RadioButtonGroup(
-    viewModel: NewPostViewModel
+    viewModel: NewPostViewModel = hiltViewModel()
 ) {
-    val radioButtonItems = listOf(
-        PostCategoryRadioButton(
-            "PC", R.drawable.icon_pc
-        ), PostCategoryRadioButton(
-            "PS4", R.drawable.icon_ps4
-        ), PostCategoryRadioButton(
-            "XBOX", R.drawable.icon_xbox
-        ), PostCategoryRadioButton(
-            "NINTENDO", R.drawable.icon_nintendo
-        ), PostCategoryRadioButton(
-            "MOBILE", R.drawable.icon_pc
-        )
-    )
+    val newPostEvent = remember {
+        viewModel::onEvent
+    }
 
-    Column(
-        modifier = Modifier.padding(horizontal = 20.dp)
-    ) {
-        radioButtonItems.forEach {
+    val radioButtonItems = remember {
+        listOf(
+            PostCategoryRadioButton(
+                "PC", R.drawable.icon_pc
+            ), PostCategoryRadioButton(
+                "PS4", R.drawable.icon_ps4
+            ), PostCategoryRadioButton(
+                "XBOX", R.drawable.icon_xbox
+            ), PostCategoryRadioButton(
+                "NINTENDO", R.drawable.icon_nintendo
+            ), PostCategoryRadioButton(
+                "MOBILE", R.drawable.icon_pc
+            )
+        ).toMutableList()
+    }
+    LazyColumn() {
+        items(items = radioButtonItems, key = { it.name }) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 10.dp)
             ) {
                 RadioButton(selected = it.name == viewModel.state.value.category, onClick = {
-                    viewModel.onEvent(NewPostEvent.SelectGameCategory(it.name))
+                    newPostEvent(NewPostEvent.SelectGameCategory(it.name))
                 })
                 Row() {
                     Text(
@@ -178,4 +183,31 @@ fun RadioButtonGroup(
             }
         }
     }
+
+//    Column(
+//        modifier = Modifier.padding(horizontal = 20.dp)
+//    ) {
+//        radioButtonItems.forEach {
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                modifier = Modifier.padding(bottom = 10.dp)
+//            ) {
+//                RadioButton(selected = it.name == viewModel.state.value.category, onClick = {
+//                    newPostEvent(NewPostEvent.SelectGameCategory(it.name))
+//                })
+//                Row() {
+//                    Text(
+//                        modifier = Modifier.width(100.dp), text = it.name
+//                    )
+//                    Spacer(modifier = Modifier.width(150.dp))
+//                    Image(
+//                        modifier = Modifier.size(25.dp),
+//                        painter = painterResource(id = it.icon),
+//                        contentDescription = it.name
+//                    )
+//                }
+//
+//            }
+//        }
+//    }
 }

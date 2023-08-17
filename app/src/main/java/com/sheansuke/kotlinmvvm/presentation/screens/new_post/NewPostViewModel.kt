@@ -1,13 +1,14 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.new_post
 
-import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sheansuke.kotlinmvvm.domain.use_case.posts.PostUseCase
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
+import com.sheansuke.kotlinmvvm.presentation.screens.utils.handleApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,10 +18,11 @@ class NewPostViewModel @Inject constructor(
     private val postUseCase: PostUseCase
 ) : ViewModel() {
 
-    private val _state: MutableState<NewPostState> = mutableStateOf(
-        NewPostState()
-    )
-    val state: State<NewPostState> = _state
+    private val _state = MutableStateFlow(NewPostState())
+    val state: StateFlow<NewPostState> = _state.asStateFlow()
+
+    private val _eventFlow = MutableStateFlow<UiEvent?>(null)
+    val eventFlow: StateFlow<UiEvent?> = _eventFlow
 
     fun onEvent(event: NewPostEvent) {
         when (event) {
@@ -53,7 +55,8 @@ class NewPostViewModel @Inject constructor(
                 val newImageUri = _state.value.imageUri
                 viewModelScope.launch {
                     postUseCase.create(newPost, newImageUri).collect {
-                        Log.i("result", it.toString())
+                        val uiEvent = handleApiResult(it)
+                        _eventFlow.value = uiEvent
                     }
                 }
             }
