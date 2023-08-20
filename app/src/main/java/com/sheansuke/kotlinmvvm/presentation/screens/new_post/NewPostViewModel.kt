@@ -9,9 +9,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +26,10 @@ class NewPostViewModel @Inject constructor(
     private val _state = MutableStateFlow(NewPostState())
     val state: StateFlow<NewPostState> = _state.asStateFlow()
 
-    private val _eventFlow = MutableSharedFlow<UiEvent>()
-    val eventFlow: SharedFlow<UiEvent> = _eventFlow.asSharedFlow()
+    private val _eventFlow = MutableSharedFlow<UiEvent>(1)
+    val eventFlow: SharedFlow<UiEvent> = _eventFlow.asSharedFlow().shareIn(
+        viewModelScope, SharingStarted.WhileSubscribed(5000L)
+    )
 
     fun onEvent(event: NewPostEvent) {
         when (event) {

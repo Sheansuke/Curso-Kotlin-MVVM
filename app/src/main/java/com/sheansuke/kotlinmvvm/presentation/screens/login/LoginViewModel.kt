@@ -11,9 +11,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +27,10 @@ class LoginViewModel @Inject constructor(
     val state: StateFlow<LoginState> = _state.asStateFlow()
 
     private val _eventFlow = MutableSharedFlow<UiEvent?>(1)
-    val eventFlow: SharedFlow<UiEvent?> = _eventFlow.asSharedFlow()
+    
+    val eventFlow: SharedFlow<UiEvent?> = _eventFlow.shareIn(
+        viewModelScope, SharingStarted.WhileSubscribed(5000L)
+    )
 
     val currentUser = authUseCase.getCurrentUser()
 
