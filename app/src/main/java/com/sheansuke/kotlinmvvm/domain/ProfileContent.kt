@@ -19,7 +19,6 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import com.sheansuke.kotlinmvvm.R
@@ -40,12 +40,12 @@ import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.profile.ProfileViewModel
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 
-// TODO: falta pulir lo de las imagenes de perfil
+
 @Composable
 fun ProfileContent(
     navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()
 ) {
-    val eventFlow = viewModel.eventFlow.collectAsState()
+    val eventFlow = viewModel.eventFlow.collectAsStateWithLifecycle()
     val activity = LocalContext.current as? Activity
 
     Column(

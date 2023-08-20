@@ -4,7 +4,7 @@ import android.net.Uri
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.storage.StorageReference
 import com.sheansuke.kotlinmvvm.core.Constants
-import com.sheansuke.kotlinmvvm.domain.model.Posts
+import com.sheansuke.kotlinmvvm.domain.model.Post
 import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.domain.repository.AuthRepository
 import com.sheansuke.kotlinmvvm.domain.repository.PostRepository
@@ -20,7 +20,7 @@ class PostRepositoryImpl @Inject constructor(
     @Named(Constants.POST_COLLECTION) private val postsStorageRef: StorageReference,
     private val authRepository: AuthRepository
 ) : PostRepository {
-    override suspend fun create(newPost: Posts, imageUri: Uri?): Flow<Resource<Posts>> =
+    override suspend fun create(newPost: Post, imageUri: Uri?): Flow<Resource<Post>> =
         flow {
             emit(Resource.Loading)
             try {
@@ -42,7 +42,7 @@ class PostRepositoryImpl @Inject constructor(
                 ).await()
                 emit(
                     Resource.Success(
-                        newCreatedPost.get().await().toObject(Posts::class.java)
+                        newCreatedPost.get().await().toObject(Post::class.java)
                     )
                 )
             } catch (error: Exception) {

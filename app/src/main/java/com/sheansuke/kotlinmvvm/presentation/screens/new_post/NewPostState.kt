@@ -1,7 +1,7 @@
 package com.sheansuke.kotlinmvvm.presentation.screens.new_post
 
 import android.net.Uri
-import com.sheansuke.kotlinmvvm.domain.model.Posts
+import com.sheansuke.kotlinmvvm.domain.model.Post
 
 data class NewPostState(
     val name: String? = null,
@@ -9,7 +9,7 @@ data class NewPostState(
     val category: String? = null,
     val imageUri: Uri? = null
 ) {
-    fun toPostModel() = Posts(
+    fun toPostModel() = Post(
         name = name ?: "",
         description = description ?: "",
         category = category ?: "",

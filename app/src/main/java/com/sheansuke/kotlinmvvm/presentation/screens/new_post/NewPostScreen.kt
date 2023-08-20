@@ -2,7 +2,10 @@ package com.sheansuke.kotlinmvvm.presentation.screens.new_post
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.sheansuke.kotlinmvvm.presentation.components.LoadingIndicator
 import com.sheansuke.kotlinmvvm.presentation.screens.new_post.components.NewPostBottomBar
 import com.sheansuke.kotlinmvvm.presentation.screens.new_post.components.NewPostContent
 import com.sheansuke.kotlinmvvm.presentation.screens.new_post.components.NewPostTopBar
@@ -10,35 +13,21 @@ import com.sheansuke.kotlinmvvm.presentation.screens.new_post.components.NewPost
 
 @Composable
 fun NewPostScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: NewPostViewModel = hiltViewModel()
 ) {
+    val stateFlow = viewModel.eventFlow.collectAsStateWithLifecycle(null)
     Scaffold(topBar = {
         NewPostTopBar(navController)
     }, content = {
         NewPostContent()
 
         // EVENT FLOW HANDLER
-
-//        when (viewModel.eventFlow.collectAsState().value) {
-//            is UiEvent.Loading -> {
-//                Box(
-//                    modifier = Modifier.fillMaxSize(),
-//                    contentAlignment = Alignment.Center
-//                ) {
-//                    CircularProgressIndicator()
-//                }
-//            }
-//
-//            is UiEvent.Success -> {
-//                Toast.makeText(LocalContext.current, "Post created!", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            is UiEvent.Error -> {
-//                Toast.makeText(LocalContext.current, "A error ocurred", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            else -> {}
-//        }
+        LoadingIndicator(
+            state = stateFlow,
+            successMessage = "Post Created",
+            errorMessage = "An error ocurred",
+        )
     }, bottomBar = {
         NewPostBottomBar()
     })

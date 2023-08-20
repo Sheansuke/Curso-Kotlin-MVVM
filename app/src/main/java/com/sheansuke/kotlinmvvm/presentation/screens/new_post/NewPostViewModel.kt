@@ -6,8 +6,11 @@ import com.sheansuke.kotlinmvvm.domain.use_case.posts.PostUseCase
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.UiEvent
 import com.sheansuke.kotlinmvvm.presentation.screens.utils.handleApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,8 +24,8 @@ class NewPostViewModel @Inject constructor(
     private val _state = MutableStateFlow(NewPostState())
     val state: StateFlow<NewPostState> = _state.asStateFlow()
 
-    private val _eventFlow = MutableStateFlow<UiEvent?>(null)
-    val eventFlow: StateFlow<UiEvent?> = _eventFlow
+    private val _eventFlow = MutableSharedFlow<UiEvent>()
+    val eventFlow: SharedFlow<UiEvent> = _eventFlow.asSharedFlow()
 
     fun onEvent(event: NewPostEvent) {
         when (event) {
@@ -56,7 +59,7 @@ class NewPostViewModel @Inject constructor(
                 viewModelScope.launch {
                     postUseCase.create(newPost, newImageUri).collect {
                         val uiEvent = handleApiResult(it)
-                        _eventFlow.value = uiEvent
+                        _eventFlow.emit(uiEvent)
                     }
                 }
             }

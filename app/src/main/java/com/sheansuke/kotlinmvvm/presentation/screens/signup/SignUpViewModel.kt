@@ -5,8 +5,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
-import com.sheansuke.kotlinmvvm.domain.model.Resource
 import com.sheansuke.kotlinmvvm.domain.model.User
 import com.sheansuke.kotlinmvvm.domain.use_case.auth.AuthUseCase
 import com.sheansuke.kotlinmvvm.domain.use_case.users.UsersUseCase
@@ -24,8 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase,
-    private val usersUseCase: UsersUseCase
+    private val authUseCase: AuthUseCase, private val usersUseCase: UsersUseCase
 ) : ViewModel() {
 
     private val _signUpState: MutableState<SignUpState> = mutableStateOf(SignUpState(""))
@@ -34,35 +31,33 @@ class SignUpViewModel @Inject constructor(
     private val _eventFlow = MutableStateFlow<UiEvent?>(null)
     val eventFlow: StateFlow<UiEvent?> = _eventFlow
 
-    val newUser = User("","","","")
+    val newUser = User("", "", "", "")
 
     fun onSignUp() = viewModelScope.launch {
         newUser.id = authUseCase.getCurrentUser()?.uid
         usersUseCase.create(newUser)
     }
+
     // EVENTS -------------------------------------------------------
     fun onEvent(event: SignUpEvent) {
         when (event) {
             is SignUpEvent.InputUserName -> {
                 _signUpState.value = signUpState.value.copy(
-                    username = event.username,
-                    isValidUserName = validateUsername(event.username)
+                    username = event.username, isValidUserName = validateUsername(event.username)
                 )
                 validateForm()
             }
 
             is SignUpEvent.InputEmail -> {
                 _signUpState.value = signUpState.value.copy(
-                    email = event.email,
-                    isValidEmail = validateEmail(event.email)
+                    email = event.email, isValidEmail = validateEmail(event.email)
                 )
                 validateForm()
             }
 
             is SignUpEvent.InputPassword -> {
                 _signUpState.value = signUpState.value.copy(
-                    password = event.password,
-                    isValidPassword = validatePassword(event.password)
+                    password = event.password, isValidPassword = validatePassword(event.password)
                 )
                 validateForm()
             }
@@ -71,8 +66,7 @@ class SignUpViewModel @Inject constructor(
                 _signUpState.value = signUpState.value.copy(
                     confirmPassword = event.confirmPassword,
                     isValidConfirmPassword = validateConfirmPassword(
-                        _signUpState.value.password,
-                        event.confirmPassword
+                        _signUpState.value.password, event.confirmPassword
                     )
                 )
                 validateForm()
@@ -84,9 +78,11 @@ class SignUpViewModel @Inject constructor(
                 newUser.email = _signUpState.value.email
                 newUser.password = _signUpState.value.password
                 viewModelScope.launch {
-                    val result = authUseCase.signUp(newUser)
-                    val eventResult = handleApiResult(result)
-                    _eventFlow.value = eventResult
+                    authUseCase.signUp(newUser).collect {
+                        val eventResult = handleApiResult(it)
+                        _eventFlow.value = eventResult
+                    }
+
                 }
             }
 
@@ -94,11 +90,7 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun validateForm() {
-        if (_signUpState.value.isValidEmail == true &&
-            _signUpState.value.isValidPassword == true &&
-            _signUpState.value.isValidUserName == true &&
-            _signUpState.value.isValidConfirmPassword == true
-        ) {
+        if (_signUpState.value.isValidEmail == true && _signUpState.value.isValidPassword == true && _signUpState.value.isValidUserName == true && _signUpState.value.isValidConfirmPassword == true) {
             _signUpState.value = signUpState.value.copy(
                 isValidForm = true
             )

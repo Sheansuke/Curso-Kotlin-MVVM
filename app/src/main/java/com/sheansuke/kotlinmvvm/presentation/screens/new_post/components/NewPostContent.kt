@@ -63,6 +63,7 @@ fun NewPostContent() {
 fun Header(
     viewModel: NewPostViewModel = hiltViewModel()
 ) {
+    val state = viewModel.state.collectAsStateWithLifecycle()
 
     val newPostEvent = remember {
         viewModel::onEvent
@@ -85,11 +86,11 @@ fun Header(
         Column(
             modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (viewModel.state.value.imageUri != null) {
+            if (state.value.imageUri != null) {
                 AsyncImage(
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier.fillMaxSize(),
-                    model = viewModel.state.value.imageUri,
+                    model = state.value.imageUri,
                     contentDescription = "Picked Image New Post"
                 )
             } else {
@@ -140,7 +141,9 @@ fun Body(
 fun RadioButtonGroup(
     viewModel: NewPostViewModel = hiltViewModel()
 ) {
-    val newPostEvent = remember {
+    val state = viewModel.state.collectAsStateWithLifecycle()
+
+    val newPostEvent = remember() {
         viewModel::onEvent
     }
 
@@ -165,7 +168,7 @@ fun RadioButtonGroup(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(bottom = 10.dp)
             ) {
-                RadioButton(selected = it.name == viewModel.state.value.category, onClick = {
+                RadioButton(selected = it.name == state.value.category, onClick = {
                     newPostEvent(NewPostEvent.SelectGameCategory(it.name))
                 })
                 Row() {
@@ -184,30 +187,4 @@ fun RadioButtonGroup(
         }
     }
 
-//    Column(
-//        modifier = Modifier.padding(horizontal = 20.dp)
-//    ) {
-//        radioButtonItems.forEach {
-//            Row(
-//                verticalAlignment = Alignment.CenterVertically,
-//                modifier = Modifier.padding(bottom = 10.dp)
-//            ) {
-//                RadioButton(selected = it.name == viewModel.state.value.category, onClick = {
-//                    newPostEvent(NewPostEvent.SelectGameCategory(it.name))
-//                })
-//                Row() {
-//                    Text(
-//                        modifier = Modifier.width(100.dp), text = it.name
-//                    )
-//                    Spacer(modifier = Modifier.width(150.dp))
-//                    Image(
-//                        modifier = Modifier.size(25.dp),
-//                        painter = painterResource(id = it.icon),
-//                        contentDescription = it.name
-//                    )
-//                }
-//
-//            }
-//        }
-//    }
 }
